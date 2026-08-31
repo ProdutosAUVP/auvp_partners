@@ -6,8 +6,9 @@
 
 import { LAND_DOTS } from './land-dots.js';
 import { createGlobe } from './globe.js';
-import { FRONTS, HUBS, ROUTES, distanceKm } from './network.js';
+import { FRONTS, HUBS, ROUTES, BRASIL, distanceKm } from './network.js';
 import { initEngagement } from './engagement.js';
+import { initI18n, t, locale } from './i18n.js';
 
 const $ = (sel, scope = document) => scope.querySelector(sel);
 const $$ = (sel, scope = document) => Array.from(scope.querySelectorAll(sel));
@@ -78,8 +79,9 @@ function initNetwork() {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'front';
+    button.dataset.key = front.key;
     button.setAttribute('aria-pressed', String(i === 0));
-    button.textContent = front.label;
+    button.textContent = t(front.key);
     button.addEventListener('click', () => selectFront(i));
     frontsEl.append(button);
   });
@@ -90,15 +92,16 @@ function initNetwork() {
       if (selectedFront > 0 && route.front !== selectedFront - 1) return;
       const from = HUBS[route.from];
       const to = HUBS[route.to];
+      const nomeDe = (hub) => t(`hub.${hub.id}.name`);
       const li = document.createElement('li');
       li.className = 'route';
       li.dataset.index = String(index);
       li.classList.toggle('is-active', index === selectedRoute);
       li.innerHTML = `
         <button type="button" class="route__btn" aria-pressed="${index === selectedRoute}">
-          <span class="route__pair">${from.name}<i aria-hidden="true"></i>${to.name}</span>
-          <span class="route__km">${distanceKm(from, to).toLocaleString('pt-BR')} km</span>
-          <span class="route__what">${route.what}</span>
+          <span class="route__pair">${nomeDe(from)}<i aria-hidden="true"></i>${nomeDe(to)}</span>
+          <span class="route__km">${distanceKm(from, to).toLocaleString(locale())} km</span>
+          <span class="route__what">${t(`route.${index}.what`)}</span>
         </button>`;
       const button = $('button', li);
       button.addEventListener('pointerenter', () => globe.setActive(index));
@@ -150,7 +153,8 @@ function initNetwork() {
     if (!hit) { hovered = -1; tip.hidden = true; return; }
     if (hit.index !== hovered) {
       hovered = hit.index;
-      tip.innerHTML = `<b>${HUBS[hit.index].name}</b><span>${HUBS[hit.index].role}</span>`;
+      const hub = HUBS[hit.index];
+      tip.innerHTML = `<b>${t(`hub.${hub.id}.name`)}</b><span>${t(`hub.${hub.id}.role`)}</span>`;
       tip.hidden = false;
     }
     paintTip();
@@ -160,7 +164,29 @@ function initNetwork() {
   requestAnimationFrame(followTip);
 
   const hubsFact = $('[data-fact-hubs]');
-  if (hubsFact) hubsFact.textContent = `${HUBS.length} cidades`;
+  const pintarIdioma = () => {
+    if (hubsFact) hubsFact.textContent = t('facts.hubsValue').replace('{n}', String(HUBS.length));
+    $$('.front', frontsEl).forEach((b) => { b.textContent = t(b.dataset.key); });
+    renderRoutes();
+  };
+  pintarIdioma();
+
+  /* Ao entrar na seção da rede o globo enquadra o Brasil e, logo depois, volta
+     a girar sozinho ao lado das informações. */
+  const secao = $('#rede');
+  let dentro = false;
+  new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && !dentro) {
+        dentro = true;
+        globe.focusPoint(BRASIL.lon, BRASIL.lat, 2.6);
+      } else if (!entry.isIntersecting) {
+        dentro = false;
+      }
+    });
+  }, { threshold: 0.35 }).observe(secao);
+
+  return pintarIdioma;
 }
 
 /* =========================================================================
@@ -297,13 +323,13 @@ function initForm() {
   const next = $('[data-form-next]', form);
   const submit = $('[data-form-submit]', form);
   const done = $('[data-form-done]', form);
-  const names = ['Empresa', 'Demanda', 'Contato'];
+  const names = ['form.stepCompany', 'form.stepDemand', 'form.stepContact'];
   let current = 0;
 
   const paint = () => {
     steps.forEach((step, i) => { step.hidden = i !== current; });
     bar.style.width = `${((current + 1) / steps.length) * 100}%`;
-    label.textContent = names[current];
+    label.textContent = t(names[current]);
     counter.textContent = `${current + 1} / ${steps.length}`;
     back.hidden = current === 0;
     next.hidden = current === steps.length - 1;
@@ -331,13 +357,13 @@ function initForm() {
         if (radios.has(input.name)) return;
         radios.add(input.name);
         const checked = form.querySelector(`input[name="${input.name}"]:checked`);
-        if (!checked) { setError(input, 'Selecione uma opção.'); ok = false; } else setError(input, '');
+        if (!checked) { setError(input, t('form.err.choose')); ok = false; } else setError(input, '');
         return;
       }
       const value = input.value.trim();
-      if (!value) { setError(input, 'Campo obrigatório.'); ok = false; return; }
+      if (!value) { setError(input, t('form.err.required')); ok = false; return; }
       if (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) {
-        setError(input, 'Informe um e-mail válido.'); ok = false; return;
+        setError(input, t('form.err.email')); ok = false; return;
       }
       setError(input, '');
     });
@@ -369,11 +395,12 @@ function initForm() {
       done.hidden = false;
     } catch (error) {
       submit.disabled = false;
-      setError($('#email', form), 'Não foi possível enviar agora. Tente novamente.');
+      setError($('#email', form), t('form.err.send'));
     }
   });
 
   paint();
+  return paint;
 }
 
 /* ---------- bootstrap ---------- */
@@ -382,9 +409,15 @@ initReveal();
 initAccordion();
 initSteps();
 initMagnetic();
-initForm();
-initNetwork();
-initEngagement($('[data-gauge]'));
+/* O i18n vem antes dos componentes: ele fotografa o português direto do HTML,
+   e essa foto precisa ser anterior a qualquer texto que o JS escreva. */
+const repintar = {};
+await initI18n({
+  onChange: () => { repintar.rede?.(); repintar.medidor?.(); repintar.form?.(); },
+});
+repintar.form = initForm();
+repintar.rede = initNetwork();
+repintar.medidor = initEngagement($('[data-gauge]'));
 
 const year = $('[data-year]');
 if (year) year.textContent = `© ${new Date().getFullYear()}`;

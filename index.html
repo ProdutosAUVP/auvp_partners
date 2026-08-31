@@ -20,39 +20,52 @@
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
-<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<a class="skip" href="#conteudo" data-i18n="skip">Ir para o conteúdo</a>
 
 <header class="nav" data-nav>
   <div class="nav__inner">
-    <a class="brand" href="#topo" aria-label="AUVP Partners — início">
+    <a class="brand" href="#topo" aria-label="AUVP Partners — início" data-i18n-attr="aria-label:nav.home">
       <img class="brand__logo" src="assets/brand/auvp-capital-horizontal.svg" alt="AUVP Capital" width="400" height="152">
       <span class="brand__rule" aria-hidden="true"></span>
       <span class="brand__name">Partners</span>
     </a>
 
-    <nav class="nav__links" aria-label="Seções">
-      <a href="#rede">Rede</a>
-      <a href="#solucoes">Soluções</a>
-      <a href="#metodo">Método</a>
-      <a href="#engajamento">Engajamento</a>
+    <nav class="nav__links" aria-label="Seções" data-i18n-attr="aria-label:nav.sections">
+      <a href="#rede" data-i18n="nav.network">Rede</a>
+      <a href="#solucoes" data-i18n="nav.solutions">Soluções</a>
+      <a href="#metodo" data-i18n="nav.method">Método</a>
+      <a href="#engajamento" data-i18n="nav.engagement">Engajamento</a>
     </nav>
 
+    <div class="lang" data-lang>
+      <button class="lang__btn" type="button" aria-expanded="false" aria-haspopup="true"
+              data-lang-toggle data-i18n-attr="aria-label:nav.language" aria-label="Idioma">
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.1">
+          <circle cx="8" cy="8" r="6.2"></circle>
+          <ellipse cx="8" cy="8" rx="2.7" ry="6.2"></ellipse>
+          <path d="M2.1 6.1h11.8M2.1 9.9h11.8"></path>
+        </svg>
+        <span data-lang-current>PT</span>
+      </button>
+      <ul class="lang__menu" hidden data-lang-menu></ul>
+    </div>
+
     <a class="btn btn--sm btn--solid" href="#aplicacao" data-magnetic>
-      <span>Aplicar para avaliação</span>
+      <span data-i18n="nav.cta">Aplicar para avaliação</span>
       <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
     </a>
 
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-toggle>
-      <span class="sr-only">Abrir menu</span>
+      <span class="sr-only" data-i18n="nav.menu">Abrir menu</span>
       <span class="nav__bars" aria-hidden="true"><i></i><i></i></span>
     </button>
   </div>
   <div class="nav__sheet" id="menu-mobile" hidden data-menu-sheet>
-    <a href="#rede">Rede</a>
-    <a href="#solucoes">Soluções</a>
-    <a href="#metodo">Método</a>
-    <a href="#engajamento">Engajamento</a>
-    <a href="#aplicacao">Aplicar para avaliação</a>
+    <a href="#rede" data-i18n="nav.network">Rede</a>
+    <a href="#solucoes" data-i18n="nav.solutions">Soluções</a>
+    <a href="#metodo" data-i18n="nav.method">Método</a>
+    <a href="#engajamento" data-i18n="nav.engagement">Engajamento</a>
+    <a href="#aplicacao" data-i18n="nav.ctaLong">Aplicar para avaliação</a>
   </div>
 </header>
 
@@ -62,34 +75,34 @@
     <div class="stage__canvas" data-stage-canvas>
       <canvas data-globe aria-hidden="true"></canvas>
       <div class="stage__veil" aria-hidden="true"></div>
-      <p class="globe__hint" data-globe-hint><span>Arraste para girar</span></p>
+      <p class="globe__hint" data-globe-hint><span data-i18n="globe.hint">Arraste para girar</span></p>
       <div class="globe__tip" data-globe-tip hidden></div>
     </div>
 
     <section class="hero" aria-labelledby="hero-title">
       <div class="wrap">
-        <h1 class="hero__title reveal" id="hero-title">
+        <h1 class="hero__title reveal" id="hero-title" data-i18n-html="hero.title">
           O mundo corporativo à distância<strong>de uma apresentação</strong>
         </h1>
-        <p class="hero__lede reveal">
+        <p class="hero__lede reveal" data-i18n="hero.lede">
           Um conselho estratégico B2B que conecta empresas privadas e family offices
           a capital, fornecedores e contrapartes — no Brasil e fora dele.
         </p>
         <div class="hero__actions reveal">
           <a class="btn btn--solid" href="#aplicacao" data-magnetic>
-            <span>Aplicar para avaliação</span>
+            <span data-i18n="hero.cta">Aplicar para avaliação</span>
             <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </a>
-          <a class="btn btn--ghost" href="#metodo">Conhecer o método</a>
+          <a class="btn btn--ghost" href="#metodo" data-i18n="hero.method">Conhecer o método</a>
         </div>
       </div>
 
       <div class="wrap hero__facts">
         <dl class="facts reveal">
-          <div class="fact"><dt>Atuação</dt><dd>B2B · Family offices</dd></div>
-          <div class="fact"><dt>Frentes</dt><dd>Intermediação · Cross-border · Wealth</dd></div>
-          <div class="fact"><dt>Praças na rede</dt><dd data-fact-hubs>—</dd></div>
-          <div class="fact"><dt>Engajamento</dt><dd>Setup + success fee</dd></div>
+          <div class="fact"><dt data-i18n="facts.scope">Atuação</dt><dd data-i18n="facts.scopeValue">B2B · Family offices</dd></div>
+          <div class="fact"><dt data-i18n="facts.fronts">Frentes</dt><dd data-i18n="facts.frontsValue">Intermediação · Cross-border · Wealth</dd></div>
+          <div class="fact"><dt data-i18n="facts.hubs">Praças na rede</dt><dd data-fact-hubs>—</dd></div>
+          <div class="fact"><dt data-i18n="facts.engage">Engajamento</dt><dd data-i18n="facts.engageValue">Setup + success fee</dd></div>
         </dl>
       </div>
     </section>
@@ -98,17 +111,17 @@
     <section class="network" id="rede" aria-labelledby="rede-title">
       <div class="wrap network__grid">
         <div class="network__intro">
-          <h2 class="h2" id="rede-title">Três frentes sobre uma malha de contatos já validada.</h2>
-          <p class="lede">
+          <h2 class="h2" id="rede-title" data-i18n="net.title">Três frentes sobre uma malha de contatos já validada.</h2>
+          <p class="lede" data-i18n="net.lede">
             Não começamos do zero a cada mandato. Selecione uma frente para ver os corredores
             que ela percorre — e o tipo de contraparte que está do outro lado.
           </p>
 
-          <div class="fronts" role="group" aria-label="Filtrar corredores por frente" data-fronts></div>
+          <div class="fronts" role="group" aria-label="Filtrar corredores por frente" data-i18n-attr="aria-label:net.filterLabel" data-fronts></div>
 
-          <ol class="routes" data-routes aria-label="Corredores"></ol>
+          <ol class="routes" data-routes aria-label="Corredores" data-i18n-attr="aria-label:net.routesLabel"></ol>
 
-          <p class="note">
+          <p class="note" data-i18n="net.note">
             Corredores ilustrativos das rotas mais demandadas. Cada mandato define
             praças, prazos e limites em SLA próprio.
           </p>
@@ -120,30 +133,30 @@
   <!-- ============ TESE ============ -->
   <section class="thesis" aria-labelledby="tese-title">
     <div class="wrap">
-      <h2 class="statement reveal" id="tese-title">
+      <h2 class="statement reveal" id="tese-title" data-i18n-html="thesis.statement">
         Negócios complexos raramente se resolvem por volume de prospecção.
         Resolvem-se por <em>acesso</em>.
       </h2>
       <div class="thesis__cols">
         <div class="reveal">
-          <h3 class="h4">Sob o guarda-chuva da AUVP Capital</h3>
-          <p>
+          <h3 class="h4" data-i18n="thesis.t1">Sob o guarda-chuva da AUVP Capital</h3>
+          <p data-i18n="thesis.p1">
             O AUVP Partners opera com posicionamento e estrutura próprios, mas usufrui da
             força institucional e do sobrenome da matriz. É essa origem que abre a primeira porta —
             e encurta a conversa que costuma levar meses.
           </p>
         </div>
         <div class="reveal">
-          <h3 class="h4">Autoridade construída em rede</h3>
-          <p>
+          <h3 class="h4" data-i18n="thesis.t2">Autoridade construída em rede</h3>
+          <p data-i18n="thesis.p2">
             Atuamos junto a entidades de classe — FIERJ, Fecomércio, sindicatos setoriais —
             como alavancas de autoridade e networking. A interação com o setor público é
             eventual e existe apenas quando a transação exige.
           </p>
         </div>
         <div class="reveal">
-          <h3 class="h4">Foco estrito em B2B</h3>
-          <p>
+          <h3 class="h4" data-i18n="thesis.t3">Foco estrito em B2B</h3>
+          <p data-i18n="thesis.p3">
             Empresas 100% privadas e family offices. Um produto individualizado e segmentado,
             desenhado caso a caso, sem esteira automatizada e sem venda direta.
           </p>
@@ -156,7 +169,7 @@
   <section class="solutions" id="solucoes" aria-labelledby="solucoes-title">
     <div class="wrap">
       <header class="section-head reveal">
-        <h2 class="h2" id="solucoes-title">A esteira</h2>
+        <h2 class="h2" id="solucoes-title" data-i18n="sol.title">A esteira</h2>
       </header>
 
       <div class="accordion" data-accordion>
@@ -164,22 +177,22 @@
           <h3>
             <button type="button" class="acc__head" aria-expanded="false">
               <span class="acc__num">01</span>
-              <span class="acc__title">Intermediação e Networking</span>
-              <span class="acc__tag">Lobby privado</span>
+              <span class="acc__title" data-i18n="sol.t1">Intermediação e Networking</span>
+              <span class="acc__tag" data-i18n="sol.tag1">Lobby privado</span>
               <span class="acc__icon" aria-hidden="true"><i></i><i></i></span>
             </button>
           </h3>
           <div class="acc__panel" hidden>
             <div class="acc__body">
-              <p>
+              <p data-i18n="sol.p1">
                 Conexão estratégica para resolver dores empresariais complexas: encontrar o
                 fornecedor certo no mercado asiático, abrir uma apresentação comercial que não
                 acontece pelo canal formal, estruturar uma consultoria com quem já viveu o problema.
               </p>
               <ul class="marks">
-                <li>Mapeamento de contraparte e fornecedores específicos</li>
-                <li>Apresentações comerciais e institucionais</li>
-                <li>Consultoria empresarial pontual</li>
+                <li data-i18n="sol.a1">Mapeamento de contraparte e fornecedores específicos</li>
+                <li data-i18n="sol.a2">Apresentações comerciais e institucionais</li>
+                <li data-i18n="sol.a3">Consultoria empresarial pontual</li>
               </ul>
             </div>
           </div>
@@ -189,22 +202,22 @@
           <h3>
             <button type="button" class="acc__head" aria-expanded="false">
               <span class="acc__num">02</span>
-              <span class="acc__title">Cross-border e Soft Landing</span>
-              <span class="acc__tag">Entrada e saída</span>
+              <span class="acc__title" data-i18n="sol.t2">Cross-border e Soft Landing</span>
+              <span class="acc__tag" data-i18n="sol.tag2">Entrada e saída</span>
               <span class="acc__icon" aria-hidden="true"><i></i><i></i></span>
             </button>
           </h3>
           <div class="acc__panel" hidden>
             <div class="acc__body">
-              <p>
+              <p data-i18n="sol.p2">
                 Assessoria e facilitação para capital e empresas estrangeiras que querem operar
                 no Brasil — e para empresas brasileiras que buscam internacionalização.
                 Dos dois lados, o trabalho é o mesmo: reduzir a distância entre a decisão e a operação.
               </p>
               <ul class="marks">
-                <li>Soft landing de capital e operações estrangeiras no Brasil</li>
-                <li>Internacionalização de empresas brasileiras</li>
-                <li>Articulação com entidades e parceiros locais</li>
+                <li data-i18n="sol.b1">Soft landing de capital e operações estrangeiras no Brasil</li>
+                <li data-i18n="sol.b2">Internacionalização de empresas brasileiras</li>
+                <li data-i18n="sol.b3">Articulação com entidades e parceiros locais</li>
               </ul>
             </div>
           </div>
@@ -214,22 +227,22 @@
           <h3>
             <button type="button" class="acc__head" aria-expanded="false">
               <span class="acc__num">03</span>
-              <span class="acc__title">Wealth e Captação</span>
-              <span class="acc__tag">AUVP Wealth</span>
+              <span class="acc__title" data-i18n="sol.t3">Wealth e Captação</span>
+              <span class="acc__tag" data-i18n="sol.tag3">AUVP Wealth</span>
               <span class="acc__icon" aria-hidden="true"><i></i><i></i></span>
             </button>
           </h3>
           <div class="acc__panel" hidden>
             <div class="acc__body">
-              <p>
+              <p data-i18n="sol.p3">
                 Conexão com pools de investimento e sinergia direta com a AUVP Wealth para
                 captação, fusões, aquisições e gestão de liquidez — do diagnóstico à mesa
                 onde a transação é fechada.
               </p>
               <ul class="marks">
-                <li>Captação junto a pools de investimento e family offices</li>
-                <li>Fusões, aquisições e sucessão societária</li>
-                <li>Gestão de liquidez com a AUVP Wealth</li>
+                <li data-i18n="sol.c1">Captação junto a pools de investimento e family offices</li>
+                <li data-i18n="sol.c2">Fusões, aquisições e sucessão societária</li>
+                <li data-i18n="sol.c3">Gestão de liquidez com a AUVP Wealth</li>
               </ul>
             </div>
           </div>
@@ -242,8 +255,8 @@
   <section class="method" id="metodo" aria-labelledby="metodo-title">
     <div class="wrap method__grid">
       <div class="method__aside">
-        <h2 class="h2" id="metodo-title">Cinco etapas, na ordem em que importam.</h2>
-        <p class="lede">
+        <h2 class="h2" id="metodo-title" data-i18n="met.title">Cinco etapas, na ordem em que importam.</h2>
+        <p class="lede" data-i18n="met.lede">
           A triagem vem antes do contrato. É ela que garante que só abraçamos demandas
           exequíveis através da nossa rede.
         </p>
@@ -253,32 +266,32 @@
         <li class="step" data-step>
           <div class="step__rail" aria-hidden="true"></div>
           <p class="step__num">01</p>
-          <h3 class="h4">Triagem prévia</h3>
-          <p>Antes de qualquer contrato, o pedido é analisado. Se a rede não resolve, dizemos não.</p>
+          <h3 class="h4" data-i18n="met.t1">Triagem prévia</h3>
+          <p data-i18n="met.p1">Antes de qualquer contrato, o pedido é analisado. Se a rede não resolve, dizemos não.</p>
         </li>
         <li class="step" data-step>
           <div class="step__rail" aria-hidden="true"></div>
           <p class="step__num">02</p>
-          <h3 class="h4">Acordo de SLA e contrato</h3>
-          <p>Regras do jogo definidas caso a caso: prazos, limites da busca e percentuais.</p>
+          <h3 class="h4" data-i18n="met.t2">Acordo de SLA e contrato</h3>
+          <p data-i18n="met.p2">Regras do jogo definidas caso a caso: prazos, limites da busca e percentuais.</p>
         </li>
         <li class="step" data-step>
           <div class="step__rail" aria-hidden="true"></div>
           <p class="step__num">03</p>
-          <h3 class="h4">Diagnóstico estratégico</h3>
-          <p>Imersão na empresa para mapear com precisão em qual frente da esteira ela entra.</p>
+          <h3 class="h4" data-i18n="met.t3">Diagnóstico estratégico</h3>
+          <p data-i18n="met.p3">Imersão na empresa para mapear com precisão em qual frente da esteira ela entra.</p>
         </li>
         <li class="step" data-step>
           <div class="step__rail" aria-hidden="true"></div>
           <p class="step__num">04</p>
-          <h3 class="h4">Execução</h3>
-          <p>Acionamento prático do networking corporativo, com acompanhamento de ponta a ponta.</p>
+          <h3 class="h4" data-i18n="met.t4">Execução</h3>
+          <p data-i18n="met.p4">Acionamento prático do networking corporativo, com acompanhamento de ponta a ponta.</p>
         </li>
         <li class="step" data-step>
           <div class="step__rail" aria-hidden="true"></div>
           <p class="step__num">05</p>
-          <h3 class="h4">Liquidação</h3>
-          <p>Concretização do negócio e apuração do success fee sobre a transação realizada.</p>
+          <h3 class="h4" data-i18n="met.t5">Liquidação</h3>
+          <p data-i18n="met.p5">Concretização do negócio e apuração do success fee sobre a transação realizada.</p>
         </li>
       </ol>
     </div>
@@ -288,23 +301,23 @@
   <section class="pricing" id="engajamento" aria-labelledby="engajamento-title">
     <div class="wrap">
       <header class="section-head reveal">
-        <h2 class="h2" id="engajamento-title">Compromisso na entrada, resultado na saída.</h2>
+        <h2 class="h2" id="engajamento-title" data-i18n="eng.title">Compromisso na entrada, resultado na saída.</h2>
       </header>
 
       <div class="engage">
         <div class="engage__panels">
           <article class="plan reveal">
-            <p class="plan__label">Taxa de setup</p>
-            <p class="plan__value">R$ 20.000<span>fixos, no início da jornada</span></p>
-            <p>
+            <p class="plan__label" data-i18n="eng.setupLabel">Taxa de setup</p>
+            <p class="plan__value" data-i18n-html="eng.setupValue">R$ 20.000<span>fixos, no início da jornada</span></p>
+            <p data-i18n="eng.setupText">
               Filtra curiosos, garante o compromisso da empresa e cobre os custos do
               diagnóstico consultivo e do ingresso na rede.
             </p>
           </article>
           <article class="plan plan--accent reveal">
-            <p class="plan__label">Success fee</p>
-            <p class="plan__value">Variável<span>percentual sobre a transação</span></p>
-            <p>
+            <p class="plan__label" data-i18n="eng.feeLabel">Success fee</p>
+            <p class="plan__value" data-i18n-html="eng.feeValue">Variável<span>percentual sobre a transação</span></p>
+            <p data-i18n="eng.feeText">
               A principal fonte de resultado do hub. O percentual é definido caso a caso,
               no contrato, junto com o SLA da operação.
             </p>
@@ -313,14 +326,14 @@
 
         <figure class="gauge reveal" data-gauge>
           <figcaption class="gauge__head">
-            <p class="gauge__label">Peso da taxa de setup na operação</p>
+            <p class="gauge__label" data-i18n="gauge.label">Peso da taxa de setup na operação</p>
             <p class="gauge__hero"><span data-gauge-weight>0,04</span>%</p>
-            <p class="gauge__sub">em uma operação de <b data-gauge-amount>R$ 50 milhões</b></p>
+            <p class="gauge__sub" data-i18n-html="gauge.sub">em uma operação de <b data-gauge-amount>R$ 50 milhões</b></p>
           </figcaption>
 
           <div class="gauge__plot">
             <svg viewBox="0 0 720 210" role="img" aria-labelledby="gauge-titulo">
-              <title id="gauge-titulo">
+              <title id="gauge-titulo" data-i18n="gauge.svgTitle">
                 Peso da taxa de setup, de 2% em uma operação de R$ 1 milhão a 0,002% em R$ 1 bilhão.
               </title>
               <g class="gauge__grid" data-gauge-grid></g>
@@ -333,12 +346,12 @@
           </div>
 
           <label class="gauge__control">
-            <span class="sr-only">Tamanho da operação</span>
+            <span class="sr-only" data-i18n="gauge.rangeLabel">Tamanho da operação</span>
             <input type="range" min="0" max="1000" value="588" step="1" data-gauge-range
                    aria-describedby="gauge-nota">
           </label>
 
-          <p class="gauge__note" id="gauge-nota">
+          <p class="gauge__note" id="gauge-nota" data-i18n="gauge.note">
             A taxa de setup é fixa: quanto maior a operação, menor o seu peso. O que
             acompanha o resultado é o success fee — e o percentual dele é definido no
             contrato, caso a caso.
@@ -346,7 +359,7 @@
         </figure>
       </div>
 
-      <p class="pricing__note reveal">
+      <p class="pricing__note reveal" data-i18n="eng.note">
         A página é um funil de qualificação — não há venda automatizada.
         Toda aplicação passa por triagem antes de qualquer proposta.
       </p>
@@ -357,15 +370,15 @@
   <section class="apply" id="aplicacao" aria-labelledby="aplicacao-title">
     <div class="wrap apply__grid">
       <div class="apply__aside">
-        <h2 class="h2" id="aplicacao-title">Comece pela triagem.</h2>
-        <p class="lede">
+        <h2 class="h2" id="aplicacao-title" data-i18n="app.title">Comece pela triagem.</h2>
+        <p class="lede" data-i18n="app.lede">
           As informações abaixo municiam a equipe antes da primeira reunião.
           Quanto mais precisa a dor, mais curta a rota até a contraparte.
         </p>
         <ul class="marks marks--light">
-          <li>Análise da demanda pela equipe do Partners</li>
-          <li>Reunião de triagem, se a rede endereça o pedido</li>
-          <li>Proposta com SLA, limites e percentuais</li>
+          <li data-i18n="app.b1">Análise da demanda pela equipe do Partners</li>
+          <li data-i18n="app.b2">Reunião de triagem, se a rede endereça o pedido</li>
+          <li data-i18n="app.b3">Proposta com SLA, limites e percentuais</li>
         </ul>
       </div>
 
@@ -379,26 +392,26 @@
         </p>
 
         <fieldset class="form__step" data-form-fieldset>
-          <legend class="sr-only">Empresa</legend>
+          <legend class="sr-only" data-i18n="form.stepCompany">Empresa</legend>
           <div class="field">
-            <label for="empresa">Empresa</label>
+            <label for="empresa" data-i18n="form.company">Empresa</label>
             <input id="empresa" name="empresa" type="text" autocomplete="organization" required>
           </div>
           <div class="field">
-            <label for="setor">Setor de atuação</label>
+            <label for="setor" data-i18n="form.sector">Setor de atuação</label>
             <input id="setor" name="setor" type="text" required>
           </div>
           <div class="field">
-            <label for="faturamento">Faturamento anual</label>
+            <label for="faturamento" data-i18n="form.revenue">Faturamento anual</label>
             <div class="select">
               <select id="faturamento" name="faturamento" required>
-                <option value="">Selecione uma faixa</option>
-                <option>Até R$ 10 milhões</option>
-                <option>R$ 10 a 50 milhões</option>
-                <option>R$ 50 a 200 milhões</option>
-                <option>R$ 200 milhões a 1 bilhão</option>
-                <option>Acima de R$ 1 bilhão</option>
-                <option>Family office / veículo de investimento</option>
+                <option value="" data-i18n="form.revenue0">Selecione uma faixa</option>
+                <option data-i18n="form.revenue1">Até R$ 10 milhões</option>
+                <option data-i18n="form.revenue2">R$ 10 a 50 milhões</option>
+                <option data-i18n="form.revenue3">R$ 50 a 200 milhões</option>
+                <option data-i18n="form.revenue4">R$ 200 milhões a 1 bilhão</option>
+                <option data-i18n="form.revenue5">Acima de R$ 1 bilhão</option>
+                <option data-i18n="form.revenue6">Family office / veículo de investimento</option>
               </select>
               <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
             </div>
@@ -406,62 +419,62 @@
         </fieldset>
 
         <fieldset class="form__step" data-form-fieldset hidden>
-          <legend class="sr-only">Demanda</legend>
+          <legend class="sr-only" data-i18n="form.stepDemand">Demanda</legend>
           <div class="field">
-            <span class="label">Frente de interesse</span>
+            <span class="label" data-i18n="form.frontLabel">Frente de interesse</span>
             <div class="choices" data-choices>
-              <label class="choice"><input type="radio" name="frente" value="Intermediação e Networking" required><span>Intermediação e Networking</span></label>
-              <label class="choice"><input type="radio" name="frente" value="Cross-border e Soft Landing"><span>Cross-border e Soft Landing</span></label>
-              <label class="choice"><input type="radio" name="frente" value="Wealth e Captação"><span>Wealth e Captação</span></label>
-              <label class="choice"><input type="radio" name="frente" value="Ainda não sei"><span>Ainda não sei</span></label>
+              <label class="choice"><input type="radio" name="frente" value="Intermediação e Networking" required><span data-i18n="form.front1">Intermediação e Networking</span></label>
+              <label class="choice"><input type="radio" name="frente" value="Cross-border e Soft Landing"><span data-i18n="form.front2">Cross-border e Soft Landing</span></label>
+              <label class="choice"><input type="radio" name="frente" value="Wealth e Captação"><span data-i18n="form.front3">Wealth e Captação</span></label>
+              <label class="choice"><input type="radio" name="frente" value="Ainda não sei"><span data-i18n="form.front4">Ainda não sei</span></label>
             </div>
           </div>
           <div class="field">
-            <label for="dor">Dor principal</label>
-            <textarea id="dor" name="dor" rows="4" required placeholder="Qual negócio precisa acontecer, com quem e até quando?"></textarea>
+            <label for="dor" data-i18n="form.pain">Dor principal</label>
+            <textarea id="dor" name="dor" rows="4" required placeholder="Qual negócio precisa acontecer, com quem e até quando?" data-i18n-attr="placeholder:form.painPh"></textarea>
           </div>
         </fieldset>
 
         <fieldset class="form__step" data-form-fieldset hidden>
-          <legend class="sr-only">Contato</legend>
+          <legend class="sr-only" data-i18n="form.stepContact">Contato</legend>
           <div class="field">
-            <label for="nome">Nome completo</label>
+            <label for="nome" data-i18n="form.name">Nome completo</label>
             <input id="nome" name="nome" type="text" autocomplete="name" required>
           </div>
           <div class="field">
-            <label for="cargo">Cargo</label>
+            <label for="cargo" data-i18n="form.role">Cargo</label>
             <input id="cargo" name="cargo" type="text" autocomplete="organization-title" required>
           </div>
           <div class="field">
-            <label for="email">E-mail corporativo</label>
+            <label for="email" data-i18n="form.email">E-mail corporativo</label>
             <input id="email" name="email" type="email" autocomplete="email" required>
           </div>
           <div class="field">
-            <label for="telefone">Telefone</label>
+            <label for="telefone" data-i18n="form.phone">Telefone</label>
             <input id="telefone" name="telefone" type="tel" autocomplete="tel" required>
           </div>
         </fieldset>
 
         <div class="form__actions">
-          <button class="btn btn--ghost" type="button" data-form-back hidden>Voltar</button>
+          <button class="btn btn--ghost" type="button" data-form-back hidden data-i18n="form.back">Voltar</button>
           <button class="btn btn--solid" type="button" data-form-next data-magnetic>
-            <span>Continuar</span>
+            <span data-i18n="form.next">Continuar</span>
             <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </button>
           <button class="btn btn--solid" type="submit" data-form-submit hidden data-magnetic>
-            <span>Enviar aplicação</span>
+            <span data-i18n="form.submit">Enviar aplicação</span>
             <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </button>
         </div>
 
-        <p class="form__legal">
+        <p class="form__legal" data-i18n="form.legal">
           Ao enviar, você autoriza o contato da equipe do AUVP Partners sobre esta aplicação.
         </p>
 
         <div class="form__done" data-form-done hidden>
           <p class="form__done-mark" aria-hidden="true"></p>
-          <h3 class="h4">Aplicação registrada.</h3>
-          <p>A equipe do Partners analisa a demanda e retorna pelo e-mail informado.</p>
+          <h3 class="h4" data-i18n="form.doneTitle">Aplicação registrada.</h3>
+          <p data-i18n="form.doneText">A equipe do Partners analisa a demanda e retorna pelo e-mail informado.</p>
         </div>
       </form>
     </div>
@@ -476,16 +489,16 @@
         <span class="brand__rule" aria-hidden="true"></span>
         <span class="brand__name">Partners</span>
       </p>
-      <p class="foot__line">Hub de negócios e relações corporativas da AUVP Capital. Sede em Goiânia, Brasil.</p>
+      <p class="foot__line" data-i18n="foot.line">Hub de negócios e relações corporativas da AUVP Capital. Sede em Goiânia, Brasil.</p>
     </div>
-    <nav class="foot__nav" aria-label="Rodapé">
-      <a href="#rede">Rede</a>
-      <a href="#solucoes">Soluções</a>
-      <a href="#metodo">Método</a>
-      <a href="#engajamento">Engajamento</a>
+    <nav class="foot__nav" aria-label="Rodapé" data-i18n-attr="aria-label:foot.navLabel">
+      <a href="#rede" data-i18n="nav.network">Rede</a>
+      <a href="#solucoes" data-i18n="nav.solutions">Soluções</a>
+      <a href="#metodo" data-i18n="nav.method">Método</a>
+      <a href="#engajamento" data-i18n="nav.engagement">Engajamento</a>
       <a href="#aplicacao">Aplicar</a>
     </nav>
-    <p class="foot__legal">
+    <p class="foot__legal" data-i18n="foot.legal">
       AUVP Partners é uma iniciativa da AUVP Capital. Esta página tem caráter informativo e
       não constitui oferta de valores mobiliários nem recomendação de investimento.
       <span data-year></span>

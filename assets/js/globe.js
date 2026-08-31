@@ -453,7 +453,7 @@ export function createGlobe(canvas, { dots, hubs, routes, colors = {} }) {
       state.velocity *= Math.pow(0.02, dt);
       state.velocityY *= Math.pow(0.02, dt);
       state.idle += dt;
-      if (!reduced && state.idle > 1.2) state.yaw += 0.055 * dt * Math.min(1, (state.idle - 1.2) * 1.5);
+      if (!reduced && state.idle > 1.2) state.yaw += 0.085 * dt * Math.min(1, (state.idle - 1.2) * 1.5);
     }
 
     const ease = 1 - Math.pow(0.006, dt);
@@ -593,6 +593,12 @@ export function createGlobe(canvas, { dots, hubs, routes, colors = {} }) {
       }
       gl.bindBuffer(gl.ARRAY_BUFFER, hubHiBuffer);
       gl.bufferSubData(gl.ARRAY_BUFFER, 0, hubHi);
+    },
+    /** Gira até o ponto (em graus) ficar de frente e segura por `hold` segundos. */
+    focusPoint(lon, lat, hold = 3) {
+      state.targetYaw = shortest(state.yaw, -lon * DEG);
+      state.targetPitch = Math.max(-0.9, Math.min(0.9, lat * DEG));
+      state.idle = -hold;
     },
     /** Gira até o ponto médio do corredor ficar de frente. */
     focusRoute(index) {
