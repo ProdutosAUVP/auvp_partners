@@ -27,6 +27,7 @@ assets/css/site.css         folha única — tokens, seções, responsivo
 assets/js/main.js           scroll, revelação, acordeão, etapas, formulário
 assets/js/globe.js          renderer WebGL (atmosfera, terra, corredores, hubs, estrelas)
 assets/js/network.js        praças e corredores (dados editáveis)
+assets/js/engagement.js     medidor do peso da taxa de setup (curva + número-herói)
 assets/js/land-dots.js      máscara de terra gerada (base64 Int16, ~4.700 pontos)
 assets/brand/               logos oficiais da AUVP Capital (SVG, versões brancas)
 assets/fonts/               Inter auto-hospedada (SIL OFL 1.1)
@@ -63,6 +64,19 @@ aponta dois índices de `HUBS` e uma frente (`0` intermediação, `1` cross-bord
 `2` wealth). As distâncias exibidas são ortodrômicas, calculadas em tempo de execução.
 Goiânia é a sede e o índice `0`; ao reordenar `HUBS`, lembre que `ROUTES` referencia
 posições, não nomes.
+
+## O medidor do engajamento
+
+A seção de engajamento traz um número vivo: o peso da taxa de setup na operação,
+que é só `20.000 / valor` — nenhum percentual de success fee é simulado, porque
+ele é definido em contrato, caso a caso. A curva usa eixo x logarítmico (R$ 1 mi a
+R$ 1 bi) e y linear (0 a 2%), e o `viewBox` do SVG acompanha o tamanho real em
+pixels, de modo que fontes, espessuras e o marcador saem no tamanho pedido em
+qualquer largura. Arrastar sobre o gráfico também move o valor; o `input[type=range]`
+continua sendo o controle acessível por teclado.
+
+Se a taxa de setup mudar, `SETUP` em `assets/js/engagement.js` é o único ponto a
+ajustar — o topo do eixo y (`TOP`) é o peso dela em uma operação de R$ 1 milhão.
 
 ## Formulário
 

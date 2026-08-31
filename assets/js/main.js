@@ -7,6 +7,7 @@
 import { LAND_DOTS } from './land-dots.js';
 import { createGlobe } from './globe.js';
 import { FRONTS, HUBS, ROUTES, distanceKm } from './network.js';
+import { initEngagement } from './engagement.js';
 
 const $ = (sel, scope = document) => scope.querySelector(sel);
 const $$ = (sel, scope = document) => Array.from(scope.querySelectorAll(sel));
@@ -389,6 +390,7 @@ initSteps();
 initMagnetic();
 initForm();
 initNetwork();
+initEngagement($('[data-gauge]'));
 
 const year = $('[data-year]');
 if (year) year.textContent = `© ${new Date().getFullYear()}`;

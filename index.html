@@ -291,23 +291,59 @@
         <h2 class="h2" id="engajamento-title">Compromisso na entrada, resultado na saída.</h2>
       </header>
 
-      <div class="plans">
-        <article class="plan reveal">
-          <p class="plan__label">Taxa de setup</p>
-          <p class="plan__value">R$ 20.000<span>fixos, no início da jornada</span></p>
-          <p>
-            Filtra curiosos, garante o compromisso da empresa e cobre os custos do
-            diagnóstico consultivo e do ingresso na rede.
+      <div class="engage">
+        <div class="engage__panels">
+          <article class="plan reveal">
+            <p class="plan__label">Taxa de setup</p>
+            <p class="plan__value">R$ 20.000<span>fixos, no início da jornada</span></p>
+            <p>
+              Filtra curiosos, garante o compromisso da empresa e cobre os custos do
+              diagnóstico consultivo e do ingresso na rede.
+            </p>
+          </article>
+          <article class="plan plan--accent reveal">
+            <p class="plan__label">Success fee</p>
+            <p class="plan__value">Variável<span>percentual sobre a transação</span></p>
+            <p>
+              A principal fonte de resultado do hub. O percentual é definido caso a caso,
+              no contrato, junto com o SLA da operação.
+            </p>
+          </article>
+        </div>
+
+        <figure class="gauge reveal" data-gauge>
+          <figcaption class="gauge__head">
+            <p class="gauge__label">Peso da taxa de setup na operação</p>
+            <p class="gauge__hero"><span data-gauge-weight>0,04</span>%</p>
+            <p class="gauge__sub">em uma operação de <b data-gauge-amount>R$ 50 milhões</b></p>
+          </figcaption>
+
+          <div class="gauge__plot">
+            <svg viewBox="0 0 720 210" role="img" aria-labelledby="gauge-titulo">
+              <title id="gauge-titulo">
+                Peso da taxa de setup, de 2% em uma operação de R$ 1 milhão a 0,002% em R$ 1 bilhão.
+              </title>
+              <g class="gauge__grid" data-gauge-grid></g>
+              <path class="gauge__area" data-gauge-area></path>
+              <path class="gauge__curve" data-gauge-curve></path>
+              <line class="gauge__guide" data-gauge-guide></line>
+              <circle class="gauge__marker" data-gauge-marker r="5"></circle>
+              <g class="gauge__ticks" data-gauge-ticks></g>
+            </svg>
+          </div>
+
+          <label class="gauge__control">
+            <span class="sr-only">Tamanho da operação</span>
+            <input type="range" min="0" max="1000" value="588" step="1" data-gauge-range
+                   aria-describedby="gauge-nota">
+          </label>
+
+          <p class="gauge__note" id="gauge-nota">
+            A taxa de setup é fixa: quanto maior a operação, menor o seu peso. O que
+            acompanha o resultado é o success fee — e o percentual dele é definido no
+            contrato, caso a caso.
           </p>
-        </article>
-        <article class="plan plan--accent reveal">
-          <p class="plan__label">Success fee</p>
-          <p class="plan__value">Variável<span>percentual sobre a transação</span></p>
-          <p>
-            A principal fonte de resultado do hub. O percentual é definido caso a caso,
-            no contrato, junto com o SLA da operação.
-          </p>
-        </article>
+        </figure>
       </div>
 
       <p class="pricing__note reveal">
