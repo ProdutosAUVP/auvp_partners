@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AUVP Partners — Acesso corporativo global</title>
+<meta name="description" content="AUVP Partners é o hub de negócios e relações corporativas da AUVP Capital: intermediação, cross-border e captação para empresas privadas e family offices.">
+<meta name="theme-color" content="#0A0B0C">
+<meta property="og:title" content="AUVP Partners — Acesso corporativo global">
+<meta property="og:description" content="Conselho estratégico B2B que conecta empresas privadas e family offices a capital, fornecedores e contrapartes — no Brasil e fora dele.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
+<header class="nav" data-nav>
+  <div class="nav__inner">
+    <a class="brand" href="#topo" aria-label="AUVP Partners — início">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1">
+          <circle cx="12" cy="12" r="9"></circle>
+          <ellipse cx="12" cy="12" rx="4" ry="9"></ellipse>
+          <path d="M3.2 9.2h17.6M3.2 14.8h17.6"></path>
+        </svg>
+      </span>
+      <span class="brand__text">
+        <span class="brand__name">AUVP <em>Partners</em></span>
+        <span class="brand__sub">AUVP Capital</span>
+      </span>
+    </a>
+
+    <nav class="nav__links" aria-label="Seções">
+      <a href="#rede">Rede</a>
+      <a href="#solucoes">Soluções</a>
+      <a href="#metodo">Método</a>
+      <a href="#engajamento">Engajamento</a>
+    </nav>
+
+    <a class="btn btn--sm btn--solid" href="#aplicacao" data-magnetic>
+      <span>Aplicar para avaliação</span>
+      <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-toggle>
+      <span class="sr-only">Abrir menu</span>
+      <span class="nav__bars" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+  <div class="nav__sheet" id="menu-mobile" hidden data-menu-sheet>
+    <a href="#rede">Rede</a>
+    <a href="#solucoes">Soluções</a>
+    <a href="#metodo">Método</a>
+    <a href="#engajamento">Engajamento</a>
+    <a href="#aplicacao">Aplicar para avaliação</a>
+  </div>
+</header>
+
+<main id="conteudo">
+  <!-- ============ PALCO: hero + rede compartilham o mesmo globo ============ -->
+  <div class="stage" id="topo" data-stage>
+    <div class="stage__canvas" data-stage-canvas>
+      <canvas data-globe aria-hidden="true"></canvas>
+      <div class="stage__veil" aria-hidden="true"></div>
+      <p class="globe__hint" data-globe-hint><span>Arraste para girar</span></p>
+      <div class="globe__tip" data-globe-tip hidden></div>
+    </div>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap">
+        <p class="eyebrow eyebrow--center reveal"><span class="eyebrow__dot" aria-hidden="true"></span>Business Council · AUVP Capital</p>
+        <h1 class="hero__title reveal" id="hero-title">
+          O mundo corporativo à distância<strong>de uma apresentação</strong>
+        </h1>
+        <p class="hero__lede reveal">
+          Um conselho estratégico B2B que conecta empresas privadas e family offices
+          a capital, fornecedores e contrapartes — no Brasil e fora dele.
+        </p>
+        <div class="hero__actions reveal">
+          <a class="btn btn--solid" href="#aplicacao" data-magnetic>
+            <span>Aplicar para avaliação</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="#metodo">Conhecer o método</a>
+        </div>
+      </div>
+
+      <div class="wrap hero__facts">
+        <dl class="facts reveal">
+          <div class="fact"><dt>Atuação</dt><dd>B2B · Family offices</dd></div>
+          <div class="fact"><dt>Frentes</dt><dd>Intermediação · Cross-border · Wealth</dd></div>
+          <div class="fact"><dt>Praças na rede</dt><dd data-fact-hubs>—</dd></div>
+          <div class="fact"><dt>Engajamento</dt><dd>Setup + success fee</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============ REDE ============ -->
+    <section class="network" id="rede" aria-labelledby="rede-title">
+      <div class="wrap network__grid">
+        <div class="network__intro">
+          <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>A rede</p>
+          <h2 class="h2" id="rede-title">Três frentes sobre uma malha de contatos já validada.</h2>
+          <p class="lede">
+            Não começamos do zero a cada mandato. Selecione uma frente para ver os corredores
+            que ela percorre — e o tipo de contraparte que está do outro lado.
+          </p>
+
+          <div class="fronts" role="group" aria-label="Filtrar corredores por frente" data-fronts></div>
+
+          <ol class="routes" data-routes aria-label="Corredores"></ol>
+
+          <p class="note">
+            Corredores ilustrativos das rotas mais demandadas. Cada mandato define
+            praças, prazos e limites em SLA próprio.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ TESE ============ -->
+  <section class="thesis" aria-labelledby="tese-title">
+    <div class="wrap">
+      <p class="eyebrow reveal"><span class="eyebrow__dot" aria-hidden="true"></span>A tese</p>
+      <h2 class="statement reveal" id="tese-title">
+        Negócios complexos raramente se resolvem por volume de prospecção.
+        Resolvem-se por <em>acesso</em>.
+      </h2>
+      <div class="thesis__cols">
+        <div class="reveal">
+          <h3 class="h4">Sob o guarda-chuva da AUVP Capital</h3>
+          <p>
+            O AUVP Partners opera com posicionamento e estrutura próprios, mas usufrui da
+            força institucional e do sobrenome da matriz. É essa origem que abre a primeira porta —
+            e encurta a conversa que costuma levar meses.
+          </p>
+        </div>
+        <div class="reveal">
+          <h3 class="h4">Autoridade construída em rede</h3>
+          <p>
+            Atuamos junto a entidades de classe — FIERJ, Fecomércio, sindicatos setoriais —
+            como alavancas de autoridade e networking. A interação com o setor público é
+            eventual e existe apenas quando a transação exige.
+          </p>
+        </div>
+        <div class="reveal">
+          <h3 class="h4">Foco estrito em B2B</h3>
+          <p>
+            Empresas 100% privadas e family offices. Um produto individualizado e segmentado,
+            desenhado caso a caso, sem esteira automatizada e sem venda direta.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOLUÇÕES ============ -->
+  <section class="solutions" id="solucoes" aria-labelledby="solucoes-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Soluções</p>
+        <h2 class="h2" id="solucoes-title">A esteira</h2>
+      </header>
+
+      <div class="accordion" data-accordion>
+        <article class="acc reveal" data-acc-item>
+          <h3>
+            <button type="button" class="acc__head" aria-expanded="false">
+              <span class="acc__num">01</span>
+              <span class="acc__title">Intermediação e Networking</span>
+              <span class="acc__tag">Lobby privado</span>
+              <span class="acc__icon" aria-hidden="true"><i></i><i></i></span>
+            </button>
+          </h3>
+          <div class="acc__panel" hidden>
+            <div class="acc__body">
+              <p>
+                Conexão estratégica para resolver dores empresariais complexas: encontrar o
+                fornecedor certo no mercado asiático, abrir uma apresentação comercial que não
+                acontece pelo canal formal, estruturar uma consultoria com quem já viveu o problema.
+              </p>
+              <ul class="marks">
+                <li>Mapeamento de contraparte e fornecedores específicos</li>
+                <li>Apresentações comerciais e institucionais</li>
+                <li>Consultoria empresarial pontual</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="acc reveal" data-acc-item>
+          <h3>
+            <button type="button" class="acc__head" aria-expanded="false">
+              <span class="acc__num">02</span>
+              <span class="acc__title">Cross-border e Soft Landing</span>
+              <span class="acc__tag">Entrada e saída</span>
+              <span class="acc__icon" aria-hidden="true"><i></i><i></i></span>
+            </button>
+          </h3>
+          <div class="acc__panel" hidden>
+            <div class="acc__body">
+              <p>
+                Assessoria e facilitação para capital e empresas estrangeiras que querem operar
+                no Brasil — e para empresas brasileiras que buscam internacionalização.
+                Dos dois lados, o trabalho é o mesmo: reduzir a distância entre a decisão e a operação.
+              </p>
+              <ul class="marks">
+                <li>Soft landing de capital e operações estrangeiras no Brasil</li>
+                <li>Internacionalização de empresas brasileiras</li>
+                <li>Articulação com entidades e parceiros locais</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="acc reveal" data-acc-item>
+          <h3>
+            <button type="button" class="acc__head" aria-expanded="false">
+              <span class="acc__num">03</span>
+              <span class="acc__title">Wealth e Captação</span>
+              <span class="acc__tag">AUVP Wealth</span>
+              <span class="acc__icon" aria-hidden="true"><i></i><i></i></span>
+            </button>
+          </h3>
+          <div class="acc__panel" hidden>
+            <div class="acc__body">
+              <p>
+                Conexão com pools de investimento e sinergia direta com a AUVP Wealth para
+                captação, fusões, aquisições e gestão de liquidez — do diagnóstico à mesa
+                onde a transação é fechada.
+              </p>
+              <ul class="marks">
+                <li>Captação junto a pools de investimento e family offices</li>
+                <li>Fusões, aquisições e sucessão societária</li>
+                <li>Gestão de liquidez com a AUVP Wealth</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MÉTODO ============ -->
+  <section class="method" id="metodo" aria-labelledby="metodo-title">
+    <div class="wrap method__grid">
+      <div class="method__aside">
+        <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>O método</p>
+        <h2 class="h2" id="metodo-title">Cinco etapas, na ordem em que importam.</h2>
+        <p class="lede">
+          A triagem vem antes do contrato. É ela que garante que só abraçamos demandas
+          exequíveis através da nossa rede.
+        </p>
+      </div>
+
+      <ol class="steps" data-steps>
+        <li class="step" data-step>
+          <div class="step__rail" aria-hidden="true"></div>
+          <p class="step__num">01</p>
+          <h3 class="h4">Triagem prévia</h3>
+          <p>Antes de qualquer contrato, o pedido é analisado. Se a rede não resolve, dizemos não.</p>
+        </li>
+        <li class="step" data-step>
+          <div class="step__rail" aria-hidden="true"></div>
+          <p class="step__num">02</p>
+          <h3 class="h4">Acordo de SLA e contrato</h3>
+          <p>Regras do jogo definidas caso a caso: prazos, limites da busca e percentuais.</p>
+        </li>
+        <li class="step" data-step>
+          <div class="step__rail" aria-hidden="true"></div>
+          <p class="step__num">03</p>
+          <h3 class="h4">Diagnóstico estratégico</h3>
+          <p>Imersão na empresa para mapear com precisão em qual frente da esteira ela entra.</p>
+        </li>
+        <li class="step" data-step>
+          <div class="step__rail" aria-hidden="true"></div>
+          <p class="step__num">04</p>
+          <h3 class="h4">Execução</h3>
+          <p>Acionamento prático do networking corporativo, com acompanhamento de ponta a ponta.</p>
+        </li>
+        <li class="step" data-step>
+          <div class="step__rail" aria-hidden="true"></div>
+          <p class="step__num">05</p>
+          <h3 class="h4">Liquidação</h3>
+          <p>Concretização do negócio e apuração do success fee sobre a transação realizada.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ ENGAJAMENTO ============ -->
+  <section class="pricing" id="engajamento" aria-labelledby="engajamento-title">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Modelo de engajamento</p>
+        <h2 class="h2" id="engajamento-title">Compromisso na entrada, resultado na saída.</h2>
+      </header>
+
+      <div class="plans">
+        <article class="plan reveal">
+          <p class="plan__label">Taxa de setup</p>
+          <p class="plan__value">R$ 20.000<span>fixos, no início da jornada</span></p>
+          <p>
+            Filtra curiosos, garante o compromisso da empresa e cobre os custos do
+            diagnóstico consultivo e do ingresso na rede.
+          </p>
+        </article>
+        <article class="plan plan--accent reveal">
+          <p class="plan__label">Success fee</p>
+          <p class="plan__value">Variável<span>percentual sobre a transação</span></p>
+          <p>
+            A principal fonte de resultado do hub. O percentual é definido caso a caso,
+            no contrato, junto com o SLA da operação.
+          </p>
+        </article>
+      </div>
+
+      <p class="pricing__note reveal">
+        A página é um funil de qualificação — não há venda automatizada.
+        Toda aplicação passa por triagem antes de qualquer proposta.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ APLICAÇÃO ============ -->
+  <section class="apply" id="aplicacao" aria-labelledby="aplicacao-title">
+    <div class="wrap apply__grid">
+      <div class="apply__aside">
+        <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Aplicação</p>
+        <h2 class="h2" id="aplicacao-title">Comece pela triagem.</h2>
+        <p class="lede">
+          As informações abaixo municiam a equipe antes da primeira reunião.
+          Quanto mais precisa a dor, mais curta a rota até a contraparte.
+        </p>
+        <ul class="marks marks--light">
+          <li>Análise da demanda pela equipe do Partners</li>
+          <li>Reunião de triagem, se a rede endereça o pedido</li>
+          <li>Proposta com SLA, limites e percentuais</li>
+        </ul>
+      </div>
+
+      <form class="form" data-form novalidate>
+        <div class="form__progress" aria-hidden="true">
+          <span data-form-bar></span>
+        </div>
+        <p class="form__counter">
+          <span data-form-step-label>Empresa</span>
+          <span data-form-step-count>1 / 3</span>
+        </p>
+
+        <fieldset class="form__step" data-form-fieldset>
+          <legend class="sr-only">Empresa</legend>
+          <div class="field">
+            <label for="empresa">Empresa</label>
+            <input id="empresa" name="empresa" type="text" autocomplete="organization" required>
+          </div>
+          <div class="field">
+            <label for="setor">Setor de atuação</label>
+            <input id="setor" name="setor" type="text" required>
+          </div>
+          <div class="field">
+            <label for="faturamento">Faturamento anual</label>
+            <div class="select">
+              <select id="faturamento" name="faturamento" required>
+                <option value="">Selecione uma faixa</option>
+                <option>Até R$ 10 milhões</option>
+                <option>R$ 10 a 50 milhões</option>
+                <option>R$ 50 a 200 milhões</option>
+                <option>R$ 200 milhões a 1 bilhão</option>
+                <option>Acima de R$ 1 bilhão</option>
+                <option>Family office / veículo de investimento</option>
+              </select>
+              <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form__step" data-form-fieldset hidden>
+          <legend class="sr-only">Demanda</legend>
+          <div class="field">
+            <span class="label">Frente de interesse</span>
+            <div class="choices" data-choices>
+              <label class="choice"><input type="radio" name="frente" value="Intermediação e Networking" required><span>Intermediação e Networking</span></label>
+              <label class="choice"><input type="radio" name="frente" value="Cross-border e Soft Landing"><span>Cross-border e Soft Landing</span></label>
+              <label class="choice"><input type="radio" name="frente" value="Wealth e Captação"><span>Wealth e Captação</span></label>
+              <label class="choice"><input type="radio" name="frente" value="Ainda não sei"><span>Ainda não sei</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="dor">Dor principal</label>
+            <textarea id="dor" name="dor" rows="4" required placeholder="Qual negócio precisa acontecer, com quem e até quando?"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="form__step" data-form-fieldset hidden>
+          <legend class="sr-only">Contato</legend>
+          <div class="field">
+            <label for="nome">Nome completo</label>
+            <input id="nome" name="nome" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="cargo">Cargo</label>
+            <input id="cargo" name="cargo" type="text" autocomplete="organization-title" required>
+          </div>
+          <div class="field">
+            <label for="email">E-mail corporativo</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="telefone">Telefone</label>
+            <input id="telefone" name="telefone" type="tel" autocomplete="tel" required>
+          </div>
+        </fieldset>
+
+        <div class="form__actions">
+          <button class="btn btn--ghost" type="button" data-form-back hidden>Voltar</button>
+          <button class="btn btn--solid" type="button" data-form-next data-magnetic>
+            <span>Continuar</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </button>
+          <button class="btn btn--solid" type="submit" data-form-submit hidden data-magnetic>
+            <span>Enviar aplicação</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </button>
+        </div>
+
+        <p class="form__legal">
+          Ao enviar, você autoriza o contato da equipe do AUVP Partners sobre esta aplicação.
+        </p>
+
+        <div class="form__done" data-form-done hidden>
+          <p class="form__done-mark" aria-hidden="true"></p>
+          <h3 class="h4">Aplicação registrada.</h3>
+          <p>A equipe do Partners analisa a demanda e retorna pelo e-mail informado.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__grid">
+    <div>
+      <p class="brand__name foot__brand">AUVP <em>Partners</em></p>
+      <p class="foot__line">Hub de negócios e relações corporativas da AUVP Capital.</p>
+    </div>
+    <nav class="foot__nav" aria-label="Rodapé">
+      <a href="#rede">Rede</a>
+      <a href="#solucoes">Soluções</a>
+      <a href="#metodo">Método</a>
+      <a href="#engajamento">Engajamento</a>
+      <a href="#aplicacao">Aplicar</a>
+    </nav>
+    <p class="foot__legal">
+      AUVP Partners é uma iniciativa da AUVP Capital. Esta página tem caráter informativo e
+      não constitui oferta de valores mobiliários nem recomendação de investimento.
+      <span data-year></span>
+    </p>
+  </div>
+</footer>
+
+<script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
