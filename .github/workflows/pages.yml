@@ -1,0 +1,43 @@
+name: Publicar no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Uma publicação por vez; a mais recente cancela a anterior ainda na fila.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Publica apenas a página: documentos internos do repositório ficam de fora.
+      - name: Montar o diretório de publicação
+        run: |
+          mkdir -p _site
+          cp index.html 404.html _site/
+          cp -r assets _site/
+          touch _site/.nojekyll
+
+      - name: Conferir o que será publicado
+        run: find _site -type f | sort
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4
