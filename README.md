@@ -28,6 +28,8 @@ assets/js/main.js           scroll, revelação, acordeão, etapas, formulário
 assets/js/globe.js          renderer WebGL (atmosfera, terra, corredores, hubs, estrelas)
 assets/js/network.js        praças e corredores (dados editáveis)
 assets/js/engagement.js     medidor do peso da taxa de setup (curva + número-herói)
+assets/js/i18n.js           motor de idiomas e seletor do menu
+assets/js/i18n/*.js         dicionários (pt traz só os textos gerados por JS)
 assets/js/land-dots.js      máscara de terra gerada (base64 Int16, ~4.700 pontos)
 assets/brand/               logos oficiais da AUVP Capital (SVG, versões brancas)
 assets/fonts/               Inter auto-hospedada (SIL OFL 1.1)
@@ -44,6 +46,30 @@ Precisa ser servido por HTTP (a página usa módulos ES):
 python3 -m http.server 8080
 # http://localhost:8080
 ```
+
+## Idiomas
+
+A página existe em português, inglês, espanhol e chinês simplificado. O idioma
+inicial vem de `localStorage` e, na primeira visita, do `navigator.language`; o
+seletor fica no menu, e a escolha persiste.
+
+**O português é a fonte.** Os textos vivem no próprio `index.html`, marcados com
+`data-i18n="chave"` (texto), `data-i18n-html` (trecho com marcação interna) e
+`data-i18n-attr="atributo:chave"`. Na inicialização o motor fotografa esse conteúdo,
+e voltar ao português é restaurar a foto — não há um `pt.js` duplicando o HTML.
+`assets/js/i18n/pt.js` guarda apenas o que o JS escreve: nomes e funções das praças,
+descrições dos corredores, mensagens de erro do formulário e as palavras de escala
+dos valores.
+
+Os outros idiomas chegam por `import()` sob demanda, então quem lê em português não
+baixa tradução nenhuma. **Ao acrescentar um texto novo, dê a ele uma chave no HTML e
+acrescente essa chave em `en.js`, `es.js` e `zh.js`** — o que faltar cai no português.
+
+Números e datas seguem o locale do idioma (`18.200 km` em pt, `18,200 km` em en). Os
+valores em reais usam as palavras de escala de cada idioma, e o chinês conta em 万 e
+亿; as marcas do eixo do medidor saem da notação compacta do `Intl`, que já resolve
+`mi/bi`, `M/B` e `万/亿`. A Inter não tem CJK: o chinês cai para a fonte de sistema,
+declarada na pilha de `--sans`.
 
 ## Marca
 

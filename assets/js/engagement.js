@@ -5,6 +5,8 @@
    fee — ele é definido em contrato e não é simulado.
    ========================================================================= */
 
+import { t, locale } from './i18n.js';
+
 const SETUP = 20000;
 const MIN = 1e6;        // R$ 1 milhão
 const MAX = 1e9;        // R$ 1 bilhão
@@ -22,19 +24,32 @@ const weightOf = (value) => (SETUP / value) * 100;
 const x = (value) => box.L + logPos(value) * (box.R - box.L);
 const y = (weight) => box.B - clamp(weight / TOP, 0, 1) * (box.B - box.T);
 
+const numero = (v, casas, agrupar = true) =>
+  v.toLocaleString(locale(), { maximumFractionDigits: casas, useGrouping: agrupar });
+
 const money = (value) => {
+  // Chinês conta em 万 (10^4) e 亿 (10^8); as demais línguas, em milhões e bilhões.
+  if (locale().startsWith('zh')) {
+    return value >= 1e8
+      ? `R$ ${numero(value / 1e8, 2, false)}${t('unit.yi')}`
+      : `R$ ${numero(value / 1e4, 0, false)}${t('unit.wan')}`;
+  }
   if (value >= 1e9) {
     const bi = value / 1e9;
-    return `R$ ${bi.toLocaleString('pt-BR', { maximumFractionDigits: 2 })} ${bi >= 2 ? 'bilhões' : 'bilhão'}`;
+    return `R$ ${numero(bi, 2)} ${bi >= 2 ? t('unit.billions') : t('unit.billion')}`;
   }
   const mi = value / 1e6;
-  return `R$ ${mi.toLocaleString('pt-BR', { maximumFractionDigits: mi < 10 ? 1 : 0 })} ${mi >= 2 ? 'milhões' : 'milhão'}`;
+  return `R$ ${numero(mi, mi < 10 ? 1 : 0)} ${mi >= 2 ? t('unit.millions') : t('unit.million')}`;
 };
+
+/** Marcas do eixo: a notação compacta do Intl já resolve mi/bi, M/B e 万/亿. */
+const moneyCurto = (value) =>
+  `R$ ${value.toLocaleString(locale(), { notation: 'compact', maximumFractionDigits: 1 })}`;
 
 /** Duas casas significativas: 2,0 · 0,48 · 0,034 · 0,0020. */
 const percent = (weight) => {
   const casas = weight >= 1 ? 1 : Math.min(5, 1 + Math.ceil(-Math.log10(weight)));
-  return weight.toLocaleString('pt-BR', { minimumFractionDigits: casas, maximumFractionDigits: casas });
+  return weight.toLocaleString(locale(), { minimumFractionDigits: casas, maximumFractionDigits: casas });
 };
 
 export function initEngagement(root) {
@@ -42,7 +57,6 @@ export function initEngagement(root) {
   const $ = (sel) => root.querySelector(sel);
   const range = $('[data-gauge-range]');
   const weightEl = $('[data-gauge-weight]');
-  const amountEl = $('[data-gauge-amount]');
   const marker = $('[data-gauge-marker]');
   const guide = $('[data-gauge-guide]');
   const plot = $('.gauge__plot');
@@ -86,9 +100,9 @@ export function initEngagement(root) {
       grade.append(nodo('line', { x1: box.L, x2: box.R, y1: py, y2: py, class: w === 0 ? 'is-axis' : '' }));
       ticks.append(nodo('text', {
         x: box.L - 12, y: py, dy: '0.32em', class: 'gauge__tick', 'text-anchor': 'end',
-      }, w === 0 ? '0%' : `${w.toLocaleString('pt-BR')}%`));
+      }, w === 0 ? '0%' : `${w.toLocaleString(locale())}%`));
     });
-    const marcas = [[1e6, 'R$ 1 mi'], [1e7, 'R$ 10 mi'], [1e8, 'R$ 100 mi'], [1e9, 'R$ 1 bi']];
+    const marcas = [1e6, 1e7, 1e8, 1e9].map((v) => [v, moneyCurto(v)]);
     marcas.forEach(([v, rotulo], i) => {
       const px = x(v);
       if (i > 0 && i < marcas.length - 1) {
@@ -117,8 +131,11 @@ export function initEngagement(root) {
     guide.setAttribute('y1', (py + 6).toFixed(1));
     guide.setAttribute('y2', box.B);
     weightEl.textContent = percent(w);
-    amountEl.textContent = money(value);
-    range.setAttribute('aria-valuetext', `${money(value)} — taxa de setup equivale a ${percent(w)}% da operação`);
+    // Reconsultado a cada pintura: a troca de idioma recria este nó.
+    const amountEl = $('[data-gauge-amount]');
+    if (amountEl) amountEl.textContent = money(value);
+    range.setAttribute('aria-valuetext',
+      t('gauge.aria').replace('{amount}', money(value)).replace('{pct}', percent(w)));
   };
 
   const tick = () => {
@@ -154,7 +171,8 @@ export function initEngagement(root) {
   plot.addEventListener('pointerup', soltar);
   plot.addEventListener('pointercancel', soltar);
 
-  desenhar();
-  paint(atual);
-  new ResizeObserver(() => { desenhar(); paint(atual); }).observe(plot);
+  const repintar = () => { desenhar(); paint(atual); };
+  repintar();
+  new ResizeObserver(repintar).observe(plot);
+  return repintar;
 }
