@@ -7,6 +7,7 @@
 import { LAND_DOTS } from './land-dots.js';
 import { createGlobe } from './globe.js';
 import { FRONTS, HUBS, ROUTES, distanceKm } from './network.js';
+import { initEngagement } from './engagement.js';
 
 const $ = (sel, scope = document) => scope.querySelector(sel);
 const $$ = (sel, scope = document) => Array.from(scope.querySelectorAll(sel));
@@ -169,16 +170,21 @@ function initNav() {
   const nav = $('[data-nav]');
   const toggle = $('[data-menu-toggle]');
   const sheet = $('[data-menu-sheet]');
+  const hero = $('.hero');
   let lastY = window.scrollY;
+  let pillAt = 0;
 
+  const measure = () => { pillAt = Math.max(120, (hero?.offsetHeight || window.innerHeight) - 96); };
   const onScroll = () => {
     const y = window.scrollY;
-    nav.classList.toggle('is-stuck', y > 24);
-    const hide = y > 560 && y > lastY && !nav.hasAttribute('data-open');
+    nav.classList.toggle('is-pill', y > pillAt);
+    const hide = y > pillAt + 240 && y > lastY + 2 && !nav.hasAttribute('data-open');
     nav.classList.toggle('is-hidden', hide);
     lastY = y;
   };
+  measure();
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => { measure(); onScroll(); });
   onScroll();
 
   const closeMenu = () => {
@@ -384,6 +390,7 @@ initSteps();
 initMagnetic();
 initForm();
 initNetwork();
+initEngagement($('[data-gauge]'));
 
 const year = $('[data-year]');
 if (year) year.textContent = `© ${new Date().getFullYear()}`;

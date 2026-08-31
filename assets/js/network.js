@@ -8,7 +8,8 @@ export const FRONTS = [
 ];
 
 export const HUBS = [
-  { name: 'São Paulo', role: 'Sede', lon: -46.63, lat: -23.55 },
+  { name: 'Goiânia', role: 'Sede', lon: -49.26, lat: -16.68 },
+  { name: 'São Paulo', role: 'Praça financeira', lon: -46.63, lat: -23.55 },
   { name: 'Rio de Janeiro', role: 'Relações institucionais', lon: -43.17, lat: -22.91 },
   { name: 'Nova York', role: 'Capital e M&A', lon: -74.01, lat: 40.71 },
   { name: 'Miami', role: 'Hub das Américas', lon: -80.19, lat: 25.76 },
@@ -26,20 +27,20 @@ export const HUBS = [
 
 /* front: 0 intermediação · 1 cross-border · 2 wealth (índices usados no shader) */
 export const ROUTES = [
-  { from: 0, to: 10, front: 0, what: 'Busca de fornecedores e OEM' },
-  { from: 0, to: 9, front: 0, what: 'Indústria, insumos e trading' },
-  { from: 1, to: 11, front: 0, what: 'Comércio exterior e logística' },
-  { from: 0, to: 13, front: 0, what: 'Tecnologia industrial' },
+  { from: 0, to: 11, front: 0, what: 'Busca de fornecedores e OEM' },
+  { from: 1, to: 10, front: 0, what: 'Indústria, insumos e trading' },
+  { from: 2, to: 12, front: 0, what: 'Comércio exterior e logística' },
+  { from: 1, to: 14, front: 0, what: 'Tecnologia industrial' },
 
-  { from: 0, to: 6, front: 1, what: 'Soft landing europeu' },
-  { from: 0, to: 7, front: 1, what: 'Capital do Golfo no Brasil' },
-  { from: 1, to: 8, front: 1, what: 'Tecnologia e entidades de classe' },
-  { from: 0, to: 12, front: 1, what: 'Base asiática para operar' },
-  { from: 0, to: 3, front: 1, what: 'Estruturas nas Américas' },
+  { from: 0, to: 7, front: 1, what: 'Soft landing europeu' },
+  { from: 0, to: 8, front: 1, what: 'Capital do Golfo no Brasil' },
+  { from: 2, to: 9, front: 1, what: 'Tecnologia e entidades de classe' },
+  { from: 1, to: 13, front: 1, what: 'Base asiática para operar' },
+  { from: 1, to: 4, front: 1, what: 'Estruturas nas Américas' },
 
-  { from: 0, to: 2, front: 2, what: 'Pools de investimento' },
-  { from: 0, to: 5, front: 2, what: 'Gestão de liquidez' },
-  { from: 1, to: 4, front: 2, what: 'Fusões e aquisições' },
+  { from: 0, to: 3, front: 2, what: 'Pools de investimento' },
+  { from: 1, to: 6, front: 2, what: 'Gestão de liquidez' },
+  { from: 2, to: 5, front: 2, what: 'Fusões e aquisições' },
 ];
 
 /** Distância ortodrômica em km, arredondada à centena. */
