@@ -6,8 +6,10 @@ JavaScript de módulos nativos. O escopo de negócio está em `AUVP_Partners_Pro
 
 ## Direção
 
-Escuro do topo ao rodapé, tipografia leve e grande, fios de 1px no lugar de caixas e
-um único acento (verde) reservado a estados ativos, marcadores e às rotas do globo.
+Escuro do topo ao rodapé, tipografia leve e grande — Inter, sem serifada em nenhum
+ponto —, fios de 1px no lugar de caixas e um único acento (verde) reservado a estados
+ativos, marcadores e às rotas do globo. O menu se recolhe numa pílula flutuante ao
+sair da hero.
 A peça interativa é um globo WebGL desenhado do zero — sem three.js — que atravessa
 o hero e a seção "A rede": o mesmo canvas sai de um planeta cortado na base da tela
 e se recompõe como esfera navegável quando a rede entra em cena.
@@ -26,7 +28,8 @@ assets/js/main.js           scroll, revelação, acordeão, etapas, formulário
 assets/js/globe.js          renderer WebGL (atmosfera, terra, corredores, hubs, estrelas)
 assets/js/network.js        praças e corredores (dados editáveis)
 assets/js/land-dots.js      máscara de terra gerada (base64 Int16, ~4.700 pontos)
-assets/fonts/               Inter e Instrument Serif auto-hospedadas (SIL OFL 1.1)
+assets/brand/               logos oficiais da AUVP Capital (SVG, versões brancas)
+assets/fonts/               Inter auto-hospedada (SIL OFL 1.1)
 assets/og.png               imagem de compartilhamento (1200x630)
 tools/build-land-dots.mjs   gerador da máscara de terra
 .github/workflows/pages.yml publicação automática no GitHub Pages
@@ -41,11 +44,25 @@ python3 -m http.server 8080
 # http://localhost:8080
 ```
 
+## Marca
+
+As logos em `assets/brand/` vieram do design system da AUVP
+(https://produtosauvp.github.io/central/design-system → Fundamentos → Marca & Logos;
+arquivos-fonte em `armandocustodio-ds/designsystemauvp`). São as versões brancas, para
+fundo escuro. O único ajuste foi remover o manifesto c2pa embutido, que respondia por
+cerca de 80% do peso de cada arquivo — os traçados estão intactos. Para atualizar,
+baixe a versão nova do design system e repita a limpeza.
+
+A assinatura da página é a logo da AUVP Capital seguida de um fio e da palavra
+*Partners*, marcando a relação de endosso entre a matriz e a iniciativa.
+
 ## Editar a rede
 
 `assets/js/network.js` concentra praças (`HUBS`) e corredores (`ROUTES`). Cada rota
 aponta dois índices de `HUBS` e uma frente (`0` intermediação, `1` cross-border,
 `2` wealth). As distâncias exibidas são ortodrômicas, calculadas em tempo de execução.
+Goiânia é a sede e o índice `0`; ao reordenar `HUBS`, lembre que `ROUTES` referencia
+posições, não nomes.
 
 ## Formulário
 

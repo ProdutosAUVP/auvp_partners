@@ -61,7 +61,7 @@ const DOT_VS = `
   ${PROJECT}
   void main(){
     vec3 r = rotate(aPos);
-    vLight = 0.6 + 0.4 * smoothstep(-0.6, 0.7, dot(normalize(r), normalize(vec3(-0.42, 0.44, 0.62))));
+    vLight = 0.68 + 0.32 * smoothstep(-0.6, 0.7, dot(normalize(r), normalize(vec3(-0.42, 0.44, 0.62))));
     vFade = smoothstep(-0.02, 0.32, r.z);
     if (r.z < -0.05) { gl_Position = vec4(2.0, 2.0, 2.0, 1.0); gl_PointSize = 0.0; return; }
     gl_Position = vec4(project(r), 0.0, 1.0);
@@ -77,7 +77,7 @@ const DOT_FS = `
   varying float vLight;
   void main(){
     float d = length(gl_PointCoord - vec2(0.5));
-    float mask = 1.0 - smoothstep(0.40, 0.5, d);
+    float mask = 1.0 - smoothstep(0.30, 0.5, d);
     gl_FragColor = vec4(mix(uColor * 0.9, vec3(1.0), vLight * 0.25), mask * vFade * uOpacity * vLight);
   }
 `;
@@ -98,6 +98,7 @@ const ARC_VS = `
   varying float vDim;
   varying float vHidden;
   varying float vActive;
+  varying float vSide;
   ${PROJECT}
   void main(){
     vec3 r = rotate(aPos);
@@ -122,6 +123,7 @@ const ARC_VS = `
     vHidden = 1.0 - (1.0 - (1.0 - smoothstep(0.99, 1.03, radial)) * (1.0 - smoothstep(-0.03, 0.05, r.z)))
                   * smoothstep(-0.42, 0.06, r.z);
     vT = aT;
+    vSide = aSide;
     vPhase = fract(aArc * 0.293);
     gl_Position = vec4(p, 0.0, 1.0);
   }
@@ -138,13 +140,17 @@ const ARC_FS = `
   varying float vDim;
   varying float vHidden;
   varying float vActive;
+  varying float vSide;
   void main(){
+    // A fita é desenhada mais larga do que a linha e some nas bordas: é isso que
+    // tira a serrilha, já que o MSAA não alcança geometria com alpha.
+    float edge = 1.0 - smoothstep(0.25, 1.0, abs(vSide));
     float taper = smoothstep(0.0, 0.05, vT) * (1.0 - smoothstep(0.95, 1.0, vT));
     float u = fract(vT - uTime * 0.17 - vPhase);
     float comet = smoothstep(0.82, 0.995, u) * (1.0 - smoothstep(0.995, 1.0, u));
-    float base = 0.38 + 0.34 * vActive;
+    float base = 0.46 + 0.34 * vActive;
     float alpha = (base + comet * (0.85 + 0.15 * vActive)) * taper * vDim;
-    alpha *= 1.0 - vHidden * 0.94;
+    alpha *= (1.0 - vHidden * 0.94) * edge;
     vec3 color = mix(uLine, uGlow, clamp(comet * 1.2 + vActive * 0.55, 0.0, 1.0));
     gl_FragColor = vec4(color, alpha * uOpacity);
   }
@@ -178,9 +184,9 @@ const HUB_FS = `
   varying float vHi;
   void main(){
     float d = length(gl_PointCoord - vec2(0.5));
-    float core = 1.0 - smoothstep(0.12, 0.2, d);
+    float core = 1.0 - smoothstep(0.10, 0.22, d);
     float ringR = mix(0.30, 0.30 + 0.12 * (0.5 + 0.5 * sin(uTime * 2.0)), vHi);
-    float ring = (1.0 - smoothstep(0.02, 0.05, abs(d - ringR))) * mix(0.28, 0.9, vHi);
+    float ring = (1.0 - smoothstep(0.012, 0.062, abs(d - ringR))) * mix(0.28, 0.9, vHi);
     vec3 color = mix(uColor, uGlow, vHi);
     float alpha = (core + ring) * vFade * uOpacity;
     gl_FragColor = vec4(color, clamp(alpha, 0.0, 1.0));
@@ -221,6 +227,8 @@ const DISC_FS = `
     vec3 cool = vec3(0.72, 0.83, 0.88);
     vec3 color = mix(cool, uGlow, 0.25);
     float alpha = (body + limb + halo + edge) * uOpacity;
+    // Ruído de meio nível: sem ele o halo escuro mostra faixas em 8 bits.
+    alpha += (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) * 0.007;
     gl_FragColor = vec4(color, clamp(alpha, 0.0, 1.0));
   }
 `;
@@ -359,7 +367,7 @@ export function createGlobe(canvas, { dots, hubs, routes, colors = {} }) {
   let dpr = 1;
 
   const resize = () => {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    dpr = Math.min(2, Math.max(1.5, window.devicePixelRatio || 1));
     const rect = canvas.getBoundingClientRect();
     width = Math.max(1, Math.round(rect.width * dpr));
     height = Math.max(1, Math.round(rect.height * dpr));
@@ -486,7 +494,7 @@ export function createGlobe(canvas, { dots, hubs, routes, colors = {} }) {
     applyCommon(progDot);
     gl.uniform1f(progDot.u.uSize, Math.min(3.4 * dpr, Math.max(1.75 * dpr, state.scale * height * 0.0028)));
     gl.uniform3fv(progDot.u.uColor, cLand);
-    gl.uniform1f(progDot.u.uOpacity, 0.92 * state.opacity);
+    gl.uniform1f(progDot.u.uOpacity, 1.0 * state.opacity);
     gl.drawArrays(gl.POINTS, 0, dots.length);
 
     // corredores
@@ -499,7 +507,7 @@ export function createGlobe(canvas, { dots, hubs, routes, colors = {} }) {
     bindAttrib(progArc.a.aFront, arcBuffer, 1, STRIDE * f, 8 * f);
     bindAttrib(progArc.a.aArc, arcBuffer, 1, STRIDE * f, 9 * f);
     applyCommon(progArc);
-    gl.uniform1f(progArc.u.uWidth, (1.35 * dpr) / height * 2);
+    gl.uniform1f(progArc.u.uWidth, (2.3 * dpr) / height * 2);
     gl.uniform1f(progArc.u.uFilter, state.filter);
     gl.uniform1f(progArc.u.uActive, state.active);
     gl.uniform3fv(progArc.u.uLine, cLine);

@@ -169,16 +169,21 @@ function initNav() {
   const nav = $('[data-nav]');
   const toggle = $('[data-menu-toggle]');
   const sheet = $('[data-menu-sheet]');
+  const hero = $('.hero');
   let lastY = window.scrollY;
+  let pillAt = 0;
 
+  const measure = () => { pillAt = Math.max(120, (hero?.offsetHeight || window.innerHeight) - 96); };
   const onScroll = () => {
     const y = window.scrollY;
-    nav.classList.toggle('is-stuck', y > 24);
-    const hide = y > 560 && y > lastY && !nav.hasAttribute('data-open');
+    nav.classList.toggle('is-pill', y > pillAt);
+    const hide = y > pillAt + 240 && y > lastY + 2 && !nav.hasAttribute('data-open');
     nav.classList.toggle('is-hidden', hide);
     lastY = y;
   };
+  measure();
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => { measure(); onScroll(); });
   onScroll();
 
   const closeMenu = () => {
