@@ -171,17 +171,11 @@ function initNav() {
   const toggle = $('[data-menu-toggle]');
   const sheet = $('[data-menu-sheet]');
   const hero = $('.hero');
-  let lastY = window.scrollY;
   let pillAt = 0;
 
   const measure = () => { pillAt = Math.max(120, (hero?.offsetHeight || window.innerHeight) - 96); };
-  const onScroll = () => {
-    const y = window.scrollY;
-    nav.classList.toggle('is-pill', y > pillAt);
-    const hide = y > pillAt + 240 && y > lastY + 2 && !nav.hasAttribute('data-open');
-    nav.classList.toggle('is-hidden', hide);
-    lastY = y;
-  };
+  // O menu não se esconde: fora da hero ele só troca de forma e segue fixo no topo.
+  const onScroll = () => { nav.classList.toggle('is-pill', window.scrollY > pillAt); };
   measure();
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => { measure(); onScroll(); });
