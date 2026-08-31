@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página não encontrada — AUVP Partners</title>
+<meta name="robots" content="noindex">
+<!-- Estilo embutido de propósito: esta página é servida em qualquer caminho,
+     onde referências relativas a assets não resolveriam. -->
+<style>
+  :root{color-scheme:dark}
+  *{box-sizing:border-box}
+  body{
+    margin:0;min-height:100svh;display:grid;place-content:center;justify-items:center;text-align:center;
+    padding:2rem;background:#06070A;color:#EFF1F0;
+    font:350 16px/1.6 'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .eyebrow{
+    display:flex;align-items:center;gap:.6rem;margin:0 0 1.6rem;
+    font-size:.6875rem;letter-spacing:.18em;text-transform:uppercase;color:#6A7075;
+  }
+  .eyebrow::before{content:'';width:5px;height:5px;border-radius:50%;background:#3FD99B;box-shadow:0 0 10px rgba(63,217,155,.75)}
+  h1{margin:0 0 1rem;font-size:clamp(1.9rem,5vw,3rem);font-weight:200;letter-spacing:-.04em;line-height:1.05}
+  p{margin:0 0 2.2rem;color:#9AA0A6;max-width:42ch}
+  a{
+    display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;
+    color:#06070A;background:#EFF1F0;border:1px solid #EFF1F0;border-radius:999px;
+    padding:.9rem 1.5rem;font-size:.875rem;transition:background .4s,box-shadow .4s;
+  }
+  a:hover{background:#fff;box-shadow:0 0 0 5px rgba(255,255,255,.06)}
+  a:focus-visible{outline:1.5px solid #3FD99B;outline-offset:3px}
+</style>
+</head>
+<body>
+  <p class="eyebrow">Erro 404</p>
+  <h1>Esta rota não existe.</h1>
+  <p>O endereço que você tentou acessar não faz parte do AUVP Partners.</p>
+  <a href="/" data-home>Voltar ao início</a>
+<script>
+  // Em github.io o site vive sob /<repositorio>/; com domínio próprio, na raiz.
+  var home = document.querySelector('[data-home]');
+  if (location.hostname.endsWith('github.io')) {
+    home.href = '/' + location.pathname.split('/')[1] + '/';
+  }
+</script>
+</body>
+</html>
