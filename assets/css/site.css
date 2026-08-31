@@ -49,6 +49,7 @@ a{color:inherit}
 .skip{position:absolute;left:-9999px;top:0;z-index:99;background:var(--text);color:var(--ink);padding:12px 18px;font-size:13px}
 .skip:focus{left:12px;top:12px}
 .wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gap)}
+section[id]{scroll-margin-top:clamp(84px,11vh,116px)}
 
 /* Telas largas: a página respira até 1720px em vez de estagnar em 1320. */
 @media (min-width:1560px){:root{--wrap:1500px;--gap:80px}}
@@ -83,24 +84,26 @@ em{font-style:normal;font-weight:350;color:var(--text)}
 /* ---------- nav ---------- */
 .nav{
   position:fixed;inset:0 0 auto;z-index:40;padding-top:0;
-  transition:transform .55s var(--ease),padding-top .55s var(--ease);
+  transition:padding-top .55s var(--ease);
 }
 .nav__inner{
-  max-width:var(--wrap);margin-inline:auto;padding:1rem var(--gap);
+  width:100%;max-width:var(--wrap);margin-inline:auto;padding:1rem var(--gap);
   display:flex;align-items:center;gap:1.5rem;
   border:1px solid transparent;border-radius:0;background:transparent;
-  transition:max-width .6s var(--ease),padding .6s var(--ease),background .5s var(--ease),
+  transition:width .6s var(--ease),max-width .6s var(--ease),padding .6s var(--ease),background .5s var(--ease),
              border-color .5s var(--ease),border-radius .5s var(--ease),box-shadow .5s var(--ease);
 }
-/* Fora da hero o menu se recolhe numa pílula flutuante. */
+/* Fora da hero o menu vira uma pílula — alinhada às bordas do conteúdo, não
+   mais estreita que ele — e permanece fixa no topo durante toda a rolagem. */
 .nav.is-pill{padding-top:14px}
 .nav.is-pill .nav__inner{
-  max-width:min(94vw,920px);padding:.5rem .5rem .5rem 1.15rem;
+  width:calc(100% - var(--gap) * 2);
+  max-width:calc(var(--wrap) - var(--gap) * 2);
+  padding:.5rem .5rem .5rem 1.15rem;
   background:rgba(9,10,14,.72);backdrop-filter:blur(18px) saturate(1.1);
   border-color:var(--line-soft);border-radius:999px;
   box-shadow:0 12px 40px -18px rgba(0,0,0,.9);
 }
-.nav.is-hidden{transform:translateY(-160%)}
 
 .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;flex:none;margin:0}
 .brand__logo{height:22px;width:auto;opacity:.95}
