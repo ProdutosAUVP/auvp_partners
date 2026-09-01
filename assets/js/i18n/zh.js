@@ -27,8 +27,6 @@ export default {
   'facts.engage': '合作方式',
   'facts.engageValue': '启动费 + 成功佣金',
   'net.note': '所示通道为最常见路线的示意。每项委托的城市、时限与范围均在各自的服务水平协议中约定。',
-  'net.routesLabel': '通道',
-
   'thesis.statement': '复杂的交易很少靠广撒网谈成，靠的是<em>通路</em>。',
   'thesis.t1': '在 AUVP Capital 的体系之下',
   'thesis.p1': 'AUVP Partners 拥有独立的定位与团队，同时依托母公司的机构影响力与品牌积累。正是这一出身打开了第一道门，把通常需要数月的对话大幅缩短。',
@@ -167,7 +165,6 @@ export default {
   'sol.b6c': '面向决策桌的市场情报',
   'form.frontLabel': '关注的服务',
   'form.front7': '尚未确定',
-  'fronts.all': '全部通道',
   'hub.brasilia.name': '巴西利亚',
   'hub.brasilia.role': '政府关系',
   'hub.beijing.name': '北京',
@@ -201,4 +198,6 @@ export default {
   'form.front5': 'Soft Landing',
   'sol.t6': 'Market Intelligence',
   'form.front6': 'Market Intelligence',
+  'net.indexLabel': '按服务划分的通道',
+  'net.scale': '{routes} 条通道 · {hubs} 座城市',
 };

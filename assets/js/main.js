@@ -70,78 +70,112 @@ function initNetwork() {
   onScroll();
 
   /* ---------- filtros e lista de corredores ---------- */
-  const frontsEl = $('[data-fronts]');
-  const routesEl = $('[data-routes]');
+  /* ---------- índice de serviços: navegação e filtro em uma peça só ---------- */
+  const navEl = $('[data-fronts]');
   let selectedFront = -1;   // -1 = todos os corredores
   let selectedRoute = -1;
 
-  // Só vira filtro o serviço que de fato percorre corredores: Market Intelligence
-  // atravessa todas as frentes e não tem rota própria no globo.
-  const filtros = [{ key: 'fronts.all', front: -1 }].concat(
-    SERVICES.map((s, i) => ({ key: s.key, front: i })).filter((f) => ROUTES.some((r) => r.front === f.front)),
-  );
+  // Só entra no índice o serviço que de fato percorre corredores: Market
+  // Intelligence atravessa todas as frentes e não tem rota própria no globo.
+  const grupos = SERVICES
+    .map((s, i) => ({ key: s.key, front: i }))
+    .filter((g) => ROUTES.some((r) => r.front === g.front));
+  const rotasDe = (front) => ROUTES
+    .map((route, index) => ({ route, index }))
+    .filter(({ route }) => route.front === front);
 
-  filtros.forEach((filtro) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'front';
-    button.dataset.key = filtro.key;
-    button.dataset.front = String(filtro.front);
-    button.setAttribute('aria-pressed', String(filtro.front === selectedFront));
-    button.textContent = t(filtro.key);
-    button.addEventListener('click', () => selectFront(filtro.front));
-    frontsEl.append(button);
-  });
+  const linhaDeRota = ({ route, index }) => {
+    const from = HUBS[route.from];
+    const to = HUBS[route.to];
+    const li = document.createElement('li');
+    li.className = 'route';
+    li.dataset.index = String(index);
+    li.classList.toggle('is-active', index === selectedRoute);
+    li.innerHTML = `
+      <button type="button" class="route__btn" aria-pressed="${index === selectedRoute}">
+        <span class="route__pair">${t(`hub.${from.id}.name`)}<i aria-hidden="true"></i>${t(`hub.${to.id}.name`)}</span>
+        <span class="route__km">${distanceKm(from, to).toLocaleString(locale())} km</span>
+        <span class="route__what">${t(`route.${index}.what`)}</span>
+      </button>`;
+    const button = $('button', li);
+    button.addEventListener('pointerenter', () => globe.setActive(index));
+    button.addEventListener('pointerleave', () => globe.setActive(selectedRoute));
+    button.addEventListener('focus', () => globe.setActive(index));
+    button.addEventListener('click', () => selectRoute(index));
+    return li;
+  };
 
-  const renderRoutes = () => {
-    routesEl.textContent = '';
-    ROUTES.forEach((route, index) => {
-      if (selectedFront >= 0 && route.front !== selectedFront) return;
-      const from = HUBS[route.from];
-      const to = HUBS[route.to];
-      const nomeDe = (hub) => t(`hub.${hub.id}.name`);
-      const li = document.createElement('li');
-      li.className = 'route';
-      li.dataset.index = String(index);
-      li.classList.toggle('is-active', index === selectedRoute);
-      li.innerHTML = `
-        <button type="button" class="route__btn" aria-pressed="${index === selectedRoute}">
-          <span class="route__pair">${nomeDe(from)}<i aria-hidden="true"></i>${nomeDe(to)}</span>
-          <span class="route__km">${distanceKm(from, to).toLocaleString(locale())} km</span>
-          <span class="route__what">${t(`route.${index}.what`)}</span>
-        </button>`;
-      const button = $('button', li);
-      button.addEventListener('pointerenter', () => globe.setActive(index));
-      button.addEventListener('pointerleave', () => globe.setActive(selectedRoute));
-      button.addEventListener('focus', () => globe.setActive(index));
-      button.addEventListener('click', () => selectRoute(index));
-      routesEl.append(li);
+  const construir = () => {
+    navEl.textContent = '';
+
+    const cabecalho = document.createElement('p');
+    cabecalho.className = 'svcnav__head';
+    cabecalho.innerHTML = `<span>${t('net.indexLabel')}</span><span>${
+      t('net.scale').replace('{routes}', String(ROUTES.length)).replace('{hubs}', String(HUBS.length))
+    }</span>`;
+    navEl.append(cabecalho);
+    grupos.forEach((grupo, ordem) => {
+      const aberto = grupo.front === selectedFront;
+      const rotas = rotasDe(grupo.front);
+
+      const item = document.createElement('div');
+      item.className = 'svc';
+      item.dataset.front = String(grupo.front);
+      if (aberto) item.setAttribute('data-open', '');
+
+      const titulo = document.createElement('h3');
+      const head = document.createElement('button');
+      head.type = 'button';
+      head.className = 'svc__head';
+      head.setAttribute('aria-expanded', String(aberto));
+      head.innerHTML = `
+        <span class="svc__num">${String(ordem + 1).padStart(2, '0')}</span>
+        <span class="svc__name" data-key="${grupo.key}">${t(grupo.key)}</span>
+        <span class="svc__count">${rotas.length}</span>
+        <span class="svc__mark" aria-hidden="true"><i></i><i></i></span>`;
+      head.addEventListener('click', () => selectFront(aberto ? -1 : grupo.front));
+      titulo.append(head);
+
+      const painel = document.createElement('div');
+      painel.className = 'svc__panel';
+      painel.hidden = !aberto;
+      const lista = document.createElement('ol');
+      lista.className = 'routes';
+      rotas.forEach((r) => lista.append(linhaDeRota(r)));
+      painel.append(lista);
+
+      item.append(titulo, painel);
+      navEl.append(item);
     });
+
+    // O índice é reconstruído a cada seleção; a abertura ganha altura animada.
+    const painelAberto = navEl.querySelector('.svc[data-open] .svc__panel');
+    if (painelAberto && !reduced) {
+      painelAberto.animate({ height: ['0px', `${painelAberto.scrollHeight}px`], opacity: [0, 1] },
+        { duration: 460, easing: 'cubic-bezier(.22,.68,.24,1)' });
+    }
   };
 
   function selectFront(front) {
-    selectedFront = front;
+    selectedFront = front === selectedFront ? -1 : front;
     selectedRoute = -1;
-    $$('.front', frontsEl).forEach((b) => {
-      b.setAttribute('aria-pressed', String(Number(b.dataset.front) === front));
-    });
-    globe.setFilter(front);
+    globe.setFilter(selectedFront);
     globe.setActive(-1);
-    renderRoutes();
+    construir();
   }
 
   function selectRoute(index) {
     selectedRoute = selectedRoute === index ? -1 : index;
     globe.setActive(selectedRoute);
     if (selectedRoute >= 0) globe.focusRoute(selectedRoute);
-    $$('.route', routesEl).forEach((li) => {
+    $$('.route', navEl).forEach((li) => {
       const on = Number(li.dataset.index) === selectedRoute;
       li.classList.toggle('is-active', on);
       $('button', li).setAttribute('aria-pressed', String(on));
     });
   }
 
-  renderRoutes();
+  construir();
 
   /* ---------- rótulo do hub sob o ponteiro ---------- */
   const tip = $('[data-globe-tip]');
@@ -175,8 +209,7 @@ function initNetwork() {
   const hubsFact = $('[data-fact-hubs]');
   const pintarIdioma = () => {
     if (hubsFact) hubsFact.textContent = t('facts.hubsValue').replace('{n}', String(HUBS.length));
-    $$('.front', frontsEl).forEach((b) => { b.textContent = t(b.dataset.key); });
-    renderRoutes();
+    construir();
   };
   pintarIdioma();
 

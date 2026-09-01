@@ -1,7 +1,5 @@
 /* Português — apenas os textos gerados por JS. O restante vive no index.html. */
 export default {
-  'fronts.all': 'Todos os corredores',
-
   // Nomes de produto: iguais nos quatro idiomas.
   'svc.institutional': 'Institutional Relations',
   'svc.connections': 'Business Connections',
@@ -57,4 +55,6 @@ export default {
   'unit.million': 'milhão', 'unit.millions': 'milhões',
   'unit.billion': 'bilhão', 'unit.billions': 'bilhões',
   'gauge.aria': '{amount} — a taxa de setup equivale a {pct}% da operação',
+  'net.indexLabel': 'Corredores por serviço',
+  'net.scale': '{routes} corredores · {hubs} praças',
 };
