@@ -96,9 +96,12 @@ são de produto e ficam em inglês nos quatro idiomas; o que traduz é a descri�
 índices são resolvidos por `id`, então reordenar `HUBS` não quebra nada. As distâncias
 exibidas são ortodrômicas, calculadas em tempo de execução.
 
-Só vira filtro no globo o serviço que de fato percorre corredores — *Market
-Intelligence* atravessa todas as frentes e não tem rota própria, então a lista de
-filtros é derivada de `ROUTES`, não fixada à mão.
+A navegação da seção é um índice: cada serviço é uma linha com o número, o nome e a
+quantidade de corredores; abrir uma linha filtra o globo e revela as rotas daquele
+serviço. Nenhuma linha aberta significa o globo com a malha inteira. Só entra no
+índice o serviço que de fato percorre corredores — *Market Intelligence* atravessa
+todas as frentes e não tem rota própria, então a lista é derivada de `ROUTES`, não
+fixada à mão.
 
 ## O medidor do engajamento
 

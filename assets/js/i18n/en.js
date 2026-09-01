@@ -27,8 +27,6 @@ export default {
   'facts.engage': 'Engagement',
   'facts.engageValue': 'Setup + success fee',
   'net.note': 'Corridors are illustrative of the most requested routes. Each mandate defines its own cities, deadlines and limits in its SLA.',
-  'net.routesLabel': 'Corridors',
-
   'thesis.statement': 'Complex deals are rarely solved by prospecting volume. They are solved by <em>access</em>.',
   'thesis.t1': 'Under the AUVP Capital umbrella',
   'thesis.p1': 'AUVP Partners runs with its own positioning and structure, but draws on the institutional weight and the surname of the parent company. That origin is what opens the first door — and shortens a conversation that usually takes months.',
@@ -167,7 +165,6 @@ export default {
   'sol.b6c': 'Market intelligence for the decision table',
   'form.frontLabel': 'Service of interest',
   'form.front7': 'Not sure yet',
-  'fronts.all': 'All corridors',
   'hub.brasilia.name': 'Brasília',
   'hub.brasilia.role': 'Government relations',
   'hub.beijing.name': 'Beijing',
@@ -201,4 +198,6 @@ export default {
   'form.front5': 'Soft Landing',
   'sol.t6': 'Market Intelligence',
   'form.front6': 'Market Intelligence',
+  'net.indexLabel': 'Corridors by service',
+  'net.scale': '{routes} corridors · {hubs} cities',
 };

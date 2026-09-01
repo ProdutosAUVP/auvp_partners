@@ -52,6 +52,9 @@ a{color:inherit}
 .skip:focus{left:12px;top:12px}
 .wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gap)}
 section[id]{scroll-margin-top:clamp(84px,11vh,116px)}
+/* A rede já começa com folga própria; sem isso a âncora revela a régua de dados
+   do hero espremida sob a barra fixa. */
+#rede{scroll-margin-top:0}
 
 /* Telas largas: a página respira até 1720px em vez de estagnar em 1320. */
 @media (min-width:1560px){:root{--wrap:1500px;--gap:80px}}
@@ -227,19 +230,37 @@ em{font-style:normal;font-weight:350;color:var(--text)}
 .network .lede{margin-bottom:2rem}
 .network .note{margin-top:1.5rem;opacity:.8}
 
-.fronts{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.9rem}
-.front{
-  appearance:none;background:none;font-family:inherit;color:var(--faint);cursor:pointer;
-  border:1px solid var(--line-soft);border-radius:999px;padding:.5rem .95rem;font-size:.75rem;
-  display:inline-flex;align-items:center;gap:.5rem;
-  transition:color .4s var(--ease),border-color .4s var(--ease),background .4s var(--ease);
+/* Índice de serviços: navega e filtra ao mesmo tempo, no lugar das pílulas. */
+.svcnav{margin-bottom:1.4rem}
+.svcnav__head{
+  display:flex;justify-content:space-between;gap:1rem;margin:0;padding:0 .2rem .7rem;
+  border-bottom:1px solid var(--line-soft);
+  font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);
 }
-.front::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.4;transition:background .35s,opacity .35s,box-shadow .35s}
-.front:hover{color:var(--text);border-color:var(--line)}
-.front[aria-pressed="true"]{color:var(--text);border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.04)}
-.front[aria-pressed="true"]::before{background:var(--accent);opacity:1;box-shadow:0 0 8px rgba(63,217,155,.7)}
+.svc{border-bottom:1px solid var(--line-soft);position:relative}
+.svc h3{margin:0;font-size:inherit;font-weight:inherit}
+.svc__head{
+  width:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;
+  gap:1.1rem;padding:.95rem .2rem;background:none;border:0;color:inherit;font-family:inherit;
+  text-align:left;cursor:pointer;transition:padding-inline .45s var(--ease),background .4s var(--ease);
+}
+.svc__head:hover,.svc[data-open] .svc__head{background:rgba(255,255,255,.035);padding-inline:.75rem .55rem}
+.svc__num{font-size:.6875rem;letter-spacing:.12em;color:var(--faint);font-variant-numeric:tabular-nums;transition:color .4s var(--ease)}
+.svc[data-open] .svc__num{color:var(--accent)}
+.svc__name{font-size:.9375rem;font-weight:350;letter-spacing:-.015em;color:var(--dim);transition:color .35s var(--ease)}
+.svc__head:hover .svc__name,.svc[data-open] .svc__name{color:var(--text)}
+.svc__count{font-size:.6875rem;color:var(--faint);font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.svc__mark{position:relative;width:11px;height:11px;color:var(--faint);flex:none}
+.svc__mark i{position:absolute;inset:50% 0 auto;height:1px;background:currentColor;transition:transform .5s var(--ease)}
+.svc__mark i:last-child{transform:rotate(90deg)}
+.svc[data-open] .svc__mark i:last-child{transform:rotate(0)}
+.svc[data-open] .svc__mark{color:var(--dim)}
+.svc__panel{overflow:hidden}
+.svc__panel .routes{border-top:0;padding:0 0 .7rem 2.3rem}
+.svc__panel .route{border-bottom:0}
+.svc__panel .route+.route{border-top:1px solid var(--line-soft)}
 
-.routes{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-soft)}
+.routes{list-style:none;margin:0;padding:0}
 .route{border-bottom:1px solid var(--line-soft)}
 .route__btn{
   width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;
@@ -484,6 +505,8 @@ em{font-style:normal;font-weight:350;color:var(--text)}
   .hero__title{font-size:clamp(2rem,8.6vw,2.9rem)}
   .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
   .form__actions{flex-direction:column-reverse;align-items:stretch}
+  .svcnav__head span:first-child{display:none}
+  .svcnav__head{justify-content:flex-end}
 }
 @media (prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none}

@@ -27,8 +27,6 @@ export default {
   'facts.engage': 'Compromiso',
   'facts.engageValue': 'Setup + success fee',
   'net.note': 'Corredores ilustrativos de las rutas más solicitadas. Cada mandato define plazas, plazos y límites en su propio SLA.',
-  'net.routesLabel': 'Corredores',
-
   'thesis.statement': 'Los negocios complejos rara vez se resuelven por volumen de prospección. Se resuelven por <em>acceso</em>.',
   'thesis.t1': 'Bajo el paraguas de AUVP Capital',
   'thesis.p1': 'AUVP Partners opera con posicionamiento y estructura propios, pero aprovecha la fuerza institucional y el apellido de la casa matriz. Es ese origen el que abre la primera puerta — y acorta la conversación que suele tomar meses.',
@@ -167,7 +165,6 @@ export default {
   'sol.b6c': 'Inteligencia de mercado para la mesa de decisión',
   'form.frontLabel': 'Servicio de interés',
   'form.front7': 'Aún no lo sé',
-  'fronts.all': 'Todos los corredores',
   'hub.brasilia.name': 'Brasilia',
   'hub.brasilia.role': 'Relaciones gubernamentales',
   'hub.beijing.name': 'Pekín',
@@ -201,4 +198,6 @@ export default {
   'form.front5': 'Soft Landing',
   'sol.t6': 'Market Intelligence',
   'form.front6': 'Market Intelligence',
+  'net.indexLabel': 'Corredores por servicio',
+  'net.scale': '{routes} corredores · {hubs} plazas',
 };
