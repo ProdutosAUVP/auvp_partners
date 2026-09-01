@@ -98,7 +98,9 @@ exibidas são ortodrômicas, calculadas em tempo de execução.
 
 A navegação da seção é um índice: cada serviço é uma linha com o número, o nome e a
 quantidade de corredores; abrir uma linha filtra o globo e revela as rotas daquele
-serviço. Nenhuma linha aberta significa o globo com a malha inteira. Só entra no
+serviço. O índice reserva em `min-height` a altura do maior painel, medida em tempo
+de execução (e refeita em resize e na troca de idioma), de modo que abrir ou fechar
+um serviço não altera a altura da página — o resto do site não se move. Nenhuma linha aberta significa o globo com a malha inteira. Só entra no
 índice o serviço que de fato percorre corredores — *Market Intelligence* atravessa
 todas as frentes e não tem rota própria, então a lista é derivada de `ROUTES`, não
 fixada à mão.
