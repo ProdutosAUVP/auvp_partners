@@ -6,7 +6,7 @@
 
 import { LAND_DOTS } from './land-dots.js';
 import { createGlobe } from './globe.js';
-import { FRONTS, HUBS, ROUTES, BRASIL, distanceKm } from './network.js';
+import { SERVICES, HUBS, ROUTES, BRASIL, distanceKm } from './network.js';
 import { initEngagement } from './engagement.js';
 import { initI18n, t, locale } from './i18n.js';
 
@@ -72,24 +72,31 @@ function initNetwork() {
   /* ---------- filtros e lista de corredores ---------- */
   const frontsEl = $('[data-fronts]');
   const routesEl = $('[data-routes]');
-  let selectedFront = 0;   // 0 = todos; 1..3 = frente + 1
+  let selectedFront = -1;   // -1 = todos os corredores
   let selectedRoute = -1;
 
-  FRONTS.forEach((front, i) => {
+  // Só vira filtro o serviço que de fato percorre corredores: Market Intelligence
+  // atravessa todas as frentes e não tem rota própria no globo.
+  const filtros = [{ key: 'fronts.all', front: -1 }].concat(
+    SERVICES.map((s, i) => ({ key: s.key, front: i })).filter((f) => ROUTES.some((r) => r.front === f.front)),
+  );
+
+  filtros.forEach((filtro) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'front';
-    button.dataset.key = front.key;
-    button.setAttribute('aria-pressed', String(i === 0));
-    button.textContent = t(front.key);
-    button.addEventListener('click', () => selectFront(i));
+    button.dataset.key = filtro.key;
+    button.dataset.front = String(filtro.front);
+    button.setAttribute('aria-pressed', String(filtro.front === selectedFront));
+    button.textContent = t(filtro.key);
+    button.addEventListener('click', () => selectFront(filtro.front));
     frontsEl.append(button);
   });
 
   const renderRoutes = () => {
     routesEl.textContent = '';
     ROUTES.forEach((route, index) => {
-      if (selectedFront > 0 && route.front !== selectedFront - 1) return;
+      if (selectedFront >= 0 && route.front !== selectedFront) return;
       const from = HUBS[route.from];
       const to = HUBS[route.to];
       const nomeDe = (hub) => t(`hub.${hub.id}.name`);
@@ -112,11 +119,13 @@ function initNetwork() {
     });
   };
 
-  function selectFront(i) {
-    selectedFront = i;
+  function selectFront(front) {
+    selectedFront = front;
     selectedRoute = -1;
-    $$('.front', frontsEl).forEach((b, j) => b.setAttribute('aria-pressed', String(i === j)));
-    globe.setFilter(i === 0 ? -1 : i - 1);
+    $$('.front', frontsEl).forEach((b) => {
+      b.setAttribute('aria-pressed', String(Number(b.dataset.front) === front));
+    });
+    globe.setFilter(front);
     globe.setActive(-1);
     renderRoutes();
   }

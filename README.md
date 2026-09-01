@@ -83,13 +83,22 @@ baixe a versão nova do design system e repita a limpeza.
 A assinatura da página é a logo da AUVP Capital seguida de um fio e da palavra
 *Partners*, marcando a relação de endosso entre a matriz e a iniciativa.
 
+## Serviços e rede
+
+A esteira tem seis frentes — *Institutional Relations*, *Business Connections*,
+*International*, *Family Office*, *Soft Landing* e *Market Intelligence*. Os nomes
+são de produto e ficam em inglês nos quatro idiomas; o que traduz é a descrição.
+
 ## Editar a rede
 
-`assets/js/network.js` concentra praças (`HUBS`) e corredores (`ROUTES`). Cada rota
-aponta dois índices de `HUBS` e uma frente (`0` intermediação, `1` cross-border,
-`2` wealth). As distâncias exibidas são ortodrômicas, calculadas em tempo de execução.
-Goiânia é a sede e o índice `0`; ao reordenar `HUBS`, lembre que `ROUTES` referencia
-posições, não nomes.
+`assets/js/network.js` concentra praças (`HUBS`), serviços (`SERVICES`) e corredores
+(`ROUTES`). Cada rota aponta duas praças e o índice do serviço que a percorre; os
+índices são resolvidos por `id`, então reordenar `HUBS` não quebra nada. As distâncias
+exibidas são ortodrômicas, calculadas em tempo de execução.
+
+Só vira filtro no globo o serviço que de fato percorre corredores — *Market
+Intelligence* atravessa todas as frentes e não tem rota própria, então a lista de
+filtros é derivada de `ROUTES`, não fixada à mão.
 
 ## O medidor do engajamento
 
@@ -113,7 +122,7 @@ Para ligar a um endpoint, adicione o atributo no formulário:
 <form class="form" data-form data-endpoint="https://exemplo.com/aplicacoes" novalidate>
 ```
 
-O payload vai como JSON com os campos `empresa`, `setor`, `faturamento`, `frente`,
+O payload vai como JSON com os campos `empresa`, `setor`, `faturamento`, `servico`,
 `dor`, `nome`, `cargo`, `email` e `telefone`.
 
 ## Regenerar a máscara de terra
