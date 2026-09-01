@@ -105,8 +105,13 @@ function initNetwork() {
     return li;
   };
 
+  const ABERTURA = { duration: 460, easing: 'cubic-bezier(.22,.68,.24,1)' };
+  let itens = [];
+
+  /** Monta o índice inteiro uma vez; abrir e fechar depois é só alternar. */
   const construir = () => {
     navEl.textContent = '';
+    itens = [];
 
     const cabecalho = document.createElement('p');
     cabecalho.className = 'svcnav__head';
@@ -114,31 +119,29 @@ function initNetwork() {
       t('net.scale').replace('{routes}', String(ROUTES.length)).replace('{hubs}', String(HUBS.length))
     }</span>`;
     navEl.append(cabecalho);
+
     grupos.forEach((grupo, ordem) => {
-      const aberto = grupo.front === selectedFront;
       const rotas = rotasDe(grupo.front);
 
       const item = document.createElement('div');
       item.className = 'svc';
       item.dataset.front = String(grupo.front);
-      if (aberto) item.setAttribute('data-open', '');
 
       const titulo = document.createElement('h3');
       const head = document.createElement('button');
       head.type = 'button';
       head.className = 'svc__head';
-      head.setAttribute('aria-expanded', String(aberto));
+      head.setAttribute('aria-expanded', 'false');
       head.innerHTML = `
         <span class="svc__num">${String(ordem + 1).padStart(2, '0')}</span>
-        <span class="svc__name" data-key="${grupo.key}">${t(grupo.key)}</span>
+        <span class="svc__name">${t(grupo.key)}</span>
         <span class="svc__count">${rotas.length}</span>
         <span class="svc__mark" aria-hidden="true"><i></i><i></i></span>`;
-      head.addEventListener('click', () => selectFront(aberto ? -1 : grupo.front));
+      head.addEventListener('click', () => selectFront(grupo.front));
       titulo.append(head);
 
       const painel = document.createElement('div');
       painel.className = 'svc__panel';
-      painel.hidden = !aberto;
       const lista = document.createElement('ol');
       lista.className = 'routes';
       rotas.forEach((r) => lista.append(linhaDeRota(r)));
@@ -146,14 +149,47 @@ function initNetwork() {
 
       item.append(titulo, painel);
       navEl.append(item);
+      itens.push({ front: grupo.front, item, head, painel });
     });
 
-    // O índice é reconstruído a cada seleção; a abertura ganha altura animada.
-    const painelAberto = navEl.querySelector('.svc[data-open] .svc__panel');
-    if (painelAberto && !reduced) {
-      painelAberto.animate({ height: ['0px', `${painelAberto.scrollHeight}px`], opacity: [0, 1] },
-        { duration: 460, easing: 'cubic-bezier(.22,.68,.24,1)' });
-    }
+    reservar();
+    aplicarEstado(false);
+  };
+
+  /* A altura do índice fica travada na do maior painel: abrir e fechar deixa de
+     mexer na altura da página, e o resto do site não se move. */
+  const reservar = () => {
+    const altura = (el) => el.getBoundingClientRect().height;
+    navEl.style.minHeight = '';
+    itens.forEach(({ painel }) => { painel.hidden = false; painel.style.height = ''; });
+    const maior = Math.max(0, ...itens.map(({ painel }) => altura(painel)));
+    itens.forEach(({ painel, front }) => { painel.hidden = front !== selectedFront; });
+    // O +1 absorve o arredondamento: sem ele a altura oscila um pixel ao abrir.
+    navEl.style.minHeight = `${Math.ceil(altura(navEl) + maior) + 1}px`;
+  };
+
+  /** Reflete o estado atual; com `animar`, a transição de altura acompanha. */
+  const aplicarEstado = (animar) => {
+    itens.forEach(({ front, item, head, painel }) => {
+      const aberto = front === selectedFront;
+      const estava = !painel.hidden;
+      item.toggleAttribute('data-open', aberto);
+      head.setAttribute('aria-expanded', String(aberto));
+      if (aberto === estava) return;
+
+      if (aberto) {
+        painel.hidden = false;
+        if (animar && !reduced) {
+          painel.animate({ height: ['0px', `${painel.scrollHeight}px`], opacity: [0, 1] }, ABERTURA);
+        }
+      } else if (animar && !reduced) {
+        const altura = painel.offsetHeight;
+        painel.animate({ height: [`${altura}px`, '0px'], opacity: [1, 0] }, ABERTURA)
+          .finished.then(() => { if (front !== selectedFront) painel.hidden = true; }).catch(() => {});
+      } else {
+        painel.hidden = true;
+      }
+    });
   };
 
   function selectFront(front) {
@@ -161,7 +197,7 @@ function initNetwork() {
     selectedRoute = -1;
     globe.setFilter(selectedFront);
     globe.setActive(-1);
-    construir();
+    aplicarEstado(true);
   }
 
   function selectRoute(index) {
@@ -176,6 +212,7 @@ function initNetwork() {
   }
 
   construir();
+  addEventListener('resize', () => { reservar(); });
 
   /* ---------- rótulo do hub sob o ponteiro ---------- */
   const tip = $('[data-globe-tip]');

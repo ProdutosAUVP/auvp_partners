@@ -232,6 +232,8 @@ em{font-style:normal;font-weight:350;color:var(--text)}
 
 /* Índice de serviços: navega e filtra ao mesmo tempo, no lugar das pílulas. */
 .svcnav{margin-bottom:1.4rem}
+/* min-height é definido em JS: a altura do índice fechado somada à do maior
+   painel. Assim abrir ou fechar um serviço não altera a altura da página. */
 .svcnav__head{
   display:flex;justify-content:space-between;gap:1rem;margin:0;padding:0 .2rem .7rem;
   border-bottom:1px solid var(--line-soft);
@@ -255,7 +257,7 @@ em{font-style:normal;font-weight:350;color:var(--text)}
 .svc__mark i:last-child{transform:rotate(90deg)}
 .svc[data-open] .svc__mark i:last-child{transform:rotate(0)}
 .svc[data-open] .svc__mark{color:var(--dim)}
-.svc__panel{overflow:hidden}
+.svc__panel{overflow:hidden;will-change:height}
 .svc__panel .routes{border-top:0;padding:0 0 .7rem 2.3rem}
 .svc__panel .route{border-bottom:0}
 .svc__panel .route+.route{border-top:1px solid var(--line-soft)}
