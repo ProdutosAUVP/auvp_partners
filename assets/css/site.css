@@ -114,6 +114,15 @@ em{font-style:normal;font-weight:350;color:var(--text)}
   position:fixed;inset:0 0 auto;z-index:40;padding-top:0;
   transition:padding-top .55s var(--ease);
 }
+/* Como a barra fica sempre visível, o conteúdo passa por baixo dela: este véu
+   evita que o texto colida com a pílula. */
+.nav::before{
+  content:'';position:absolute;inset:0 0 -34px;pointer-events:none;opacity:0;
+  background:linear-gradient(180deg,rgba(6,7,10,.92) 0%,rgba(6,7,10,.55) 55%,rgba(6,7,10,0) 100%);
+  transition:opacity .5s var(--ease);
+}
+.nav.is-pill::before{opacity:1}
+.nav__inner{position:relative}
 .nav__inner{
   width:100%;max-width:var(--wrap);margin-inline:auto;padding:1rem var(--gap);
   display:flex;align-items:center;gap:1.5rem;
