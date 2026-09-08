@@ -24,7 +24,7 @@
 
 <header class="nav" data-nav>
   <div class="nav__inner">
-    <a class="brand" href="#topo" aria-label="AUVP Partners — início" data-i18n-attr="aria-label:nav.home">
+    <a class="nav__brand" href="#topo" aria-label="AUVP Partners — início" data-i18n-attr="aria-label:nav.home">
       <img class="brand__logo" src="assets/brand/auvp-capital-horizontal.svg" alt="AUVP Capital" width="400" height="152">
       <span class="brand__rule" aria-hidden="true"></span>
       <span class="brand__name">Partners</span>
@@ -37,35 +37,38 @@
       <a href="#engajamento" data-i18n="nav.engagement">Engajamento</a>
     </nav>
 
-    <div class="lang" data-lang>
-      <button class="lang__btn" type="button" aria-expanded="false" aria-haspopup="true"
-              data-lang-toggle data-i18n-attr="aria-label:nav.language" aria-label="Idioma">
-        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.1">
-          <circle cx="8" cy="8" r="6.2"></circle>
-          <ellipse cx="8" cy="8" rx="2.7" ry="6.2"></ellipse>
-          <path d="M2.1 6.1h11.8M2.1 9.9h11.8"></path>
-        </svg>
-        <span data-lang-current>PT</span>
+    <div class="nav__actions">
+      <div class="lang" data-lang>
+        <button class="lang__btn" type="button" aria-expanded="false" aria-haspopup="true"
+                data-lang-toggle data-i18n-attr="aria-label:nav.language" aria-label="Idioma">
+          <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.1">
+            <circle cx="8" cy="8" r="6.2"></circle>
+            <ellipse cx="8" cy="8" rx="2.7" ry="6.2"></ellipse>
+            <path d="M2.1 6.1h11.8M2.1 9.9h11.8"></path>
+          </svg>
+          <span data-lang-current>PT</span>
+        </button>
+        <ul class="lang__menu" hidden data-lang-menu></ul>
+      </div>
+
+      <a class="btn btn--sm btn--solid" href="#aplicacao" data-magnetic>
+        <span data-i18n="nav.cta">Aplicar para avaliação</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+
+      <button class="nav__toggle" type="button" aria-label="Abrir menu" aria-expanded="false"
+              aria-controls="menu-mobile" data-menu-toggle data-i18n-attr="aria-label:nav.menu">
+        <span></span><span></span><span></span>
       </button>
-      <ul class="lang__menu" hidden data-lang-menu></ul>
     </div>
-
-    <a class="btn btn--sm btn--solid" href="#aplicacao" data-magnetic>
-      <span data-i18n="nav.cta">Aplicar para avaliação</span>
-      <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-    </a>
-
-    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-toggle>
-      <span class="sr-only" data-i18n="nav.menu">Abrir menu</span>
-      <span class="nav__bars" aria-hidden="true"><i></i><i></i></span>
-    </button>
   </div>
-  <div class="nav__sheet" id="menu-mobile" hidden data-menu-sheet>
+
+  <div class="nav__mobile" id="menu-mobile" hidden data-menu-sheet>
     <a href="#rede" data-i18n="nav.network">Rede</a>
     <a href="#solucoes" data-i18n="nav.solutions">Soluções</a>
     <a href="#metodo" data-i18n="nav.method">Método</a>
     <a href="#engajamento" data-i18n="nav.engagement">Engajamento</a>
-    <a href="#aplicacao" data-i18n="nav.ctaLong">Aplicar para avaliação</a>
+    <a href="#aplicacao" class="btn btn--solid" data-i18n="nav.ctaLong">Aplicar para avaliação</a>
   </div>
 </header>
 

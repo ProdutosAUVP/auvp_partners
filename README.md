@@ -8,8 +8,16 @@ JavaScript de módulos nativos. O escopo de negócio está em `AUVP_Partners_Pro
 
 Escuro do topo ao rodapé, tipografia leve e grande — Inter, sem serifada em nenhum
 ponto —, fios de 1px no lugar de caixas e um único acento (verde) reservado a estados
-ativos, marcadores e às rotas do globo. O menu se recolhe numa pílula flutuante ao
-sair da hero.
+ativos, marcadores e às rotas do globo.
+
+O menu segue o mesmo padrão da LP de recrutamento de consultoria
+(`ProdutosAUVP/lp-recrutamento-consultoria`), com as cores e a identidade daqui: a
+superfície é uma camada só, que sangra até as bordas da tela enquanto a hero passa
+atrás e encolhe até virar pílula depois dela. O que anima são as distâncias e o raio
+— nunca a opacidade —, então a troca é uma transformação contínua, sem esmaecer. A
+largura da barra é a da coluna de conteúdo mais o dobro do recuo interno, de modo que
+a marca alinha com o texto das dobras abaixo. Aqui ela é `fixed` em vez de `sticky`
+porque o globo passa atrás do menu; `sticky` empurraria a hero para baixo da barra.
 A peça interativa é um globo WebGL desenhado do zero — sem three.js — que atravessa
 o hero e a seção "A rede": o mesmo canvas sai de um planeta cortado na base da tela
 e se recompõe como esfera navegável quando a rede entra em cena.
