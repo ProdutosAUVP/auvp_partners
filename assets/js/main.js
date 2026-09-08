@@ -271,34 +271,49 @@ function initNetwork() {
 /* =========================================================================
    Navegação
    ========================================================================= */
+/** Agrupa leituras de scroll num único rAF por quadro. */
+function aoRolar(fn) {
+  let agendado = false;
+  const handler = () => {
+    if (agendado) return;
+    agendado = true;
+    requestAnimationFrame(() => { fn(); agendado = false; });
+  };
+  window.addEventListener('scroll', handler, { passive: true });
+  window.addEventListener('resize', handler);
+  handler();
+}
+
 function initNav() {
   const nav = $('[data-nav]');
-  const toggle = $('[data-menu-toggle]');
-  const sheet = $('[data-menu-sheet]');
   const hero = $('.hero');
-  let pillAt = 0;
+  const toggle = $('[data-menu-toggle]');
+  const menu = $('[data-menu-sheet]');
 
-  const measure = () => { pillAt = Math.max(120, (hero?.offsetHeight || window.innerHeight) - 96); };
-  // O menu não se esconde: fora da hero ele só troca de forma e segue fixo no topo.
-  const onScroll = () => { nav.classList.toggle('is-pill', window.scrollY > pillAt); };
-  measure();
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', () => { measure(); onScroll(); });
-  onScroll();
-
-  const closeMenu = () => {
-    nav.removeAttribute('data-open');
-    toggle.setAttribute('aria-expanded', 'false');
-    sheet.hidden = true;
-  };
-  toggle?.addEventListener('click', () => {
-    const open = nav.hasAttribute('data-open');
-    if (open) return closeMenu();
-    nav.setAttribute('data-open', '');
-    toggle.setAttribute('aria-expanded', 'true');
-    sheet.hidden = false;
+  /* O menu vira pílula só a partir da segunda dobra: enquanto a hero ainda
+     estiver passando atrás dele, segue como barra cheia. */
+  aoRolar(() => {
+    const limite = hero
+      ? hero.getBoundingClientRect().bottom <= nav.offsetHeight
+      : window.scrollY > 80;
+    nav.classList.toggle('is-floating', limite);
   });
-  $$('a', sheet).forEach((a) => a.addEventListener('click', closeMenu));
+
+  if (toggle && menu) {
+    const fechar = () => {
+      menu.removeAttribute('data-open');
+      menu.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+    };
+    toggle.addEventListener('click', () => {
+      const aberto = menu.hasAttribute('data-open');
+      if (aberto) return fechar();
+      menu.setAttribute('data-open', '');
+      menu.hidden = false;
+      toggle.setAttribute('aria-expanded', 'true');
+    });
+    $$('a', menu).forEach((a) => a.addEventListener('click', fechar));
+  }
 
   const links = $$('.nav__links a');
   const sections = links.map((a) => $(a.getAttribute('href'))).filter(Boolean);
